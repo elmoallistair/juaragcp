@@ -1,0 +1,124 @@
+# Perform Foundational Data, ML, and AI Tasks in Google Cloud: Challenge Lab 
+# https://www.qwiklabs.com/focuses/11044?parent=catalog
+
+# Task 1: Run a simple Dataflow job
+    1.1 Create bigquery dataset
+        - Navigation menu > BigQuery > Click your project
+        - Click CREATE DATASET (Dataset ID: lab, leave all default) > Create dataset
+        - Click lab dataset, click CREATE TABLE
+        - *in create table dialog*
+            - Create table from: Google Cloud Storage
+            - Select file from GCS bucket: gs://cloud-training/gsp323/lab.csv
+            - Table name: customers
+            - Enable edit as text
+                - Paste this:
+                [
+                    {"type":"STRING","name":"guid"},
+                    {"type":"BOOLEAN","name":"isActive"},
+                    {"type":"STRING","name":"firstname"},
+                    {"type":"STRING","name":"surname"},
+                    {"type":"STRING","name":"company"},
+                    {"type":"STRING","name":"email"},
+                    {"type":"STRING","name":"phone"},
+                    {"type":"STRING","name":"address"},
+                    {"type":"STRING","name":"about"},
+                    {"type":"TIMESTAMP","name":"registered"},
+                    {"type":"FLOAT","name":"latitude"},
+                    {"type":"FLOAT","name":"longitude"}
+                ]
+    1.2 Create bucket
+        - Navigation Menu > Storage > CREATE BUCKET > use your project id as bucket name > Create
+    1.3 Create dataflow job
+        - Navigation Menu > Dataflow > CREATE JOB FROM TEMPLATE
+        - *in create job from template section*
+            - Job name: give an arbitrary job name
+            - Dataflow template: Process Data in Bulk (batch) -> Text Files on Cloud Storage Pub/Sub
+            - Required parameters:
+                    Field 	                        Value
+                - JavaScript UDF path           gs://cloud-training/gsp323/lab.js
+                - JSON path                     gs://cloud-training/gsp323/lab.schema
+                - JavaScript UDF name 	        transform
+                - BigQuery output table         YOUR_PROJECT:lab.customers
+                - Cloud Storage input path 	    gs://cloud-training/gsp323/lab.csv
+                - Temporary BigQuery directory 	gs://YOUR_PROJECT/bigquery_temp
+                - Temporary location 	        gs://YOUR_PROJECT/temp
+        - RUN JOB
+
+# Task 2: Run a simple Dataproc job
+    2.1 Create Dataproc Cluster
+        - Navigation Menu > Dataproc > Cluster > Create Cluster
+        - *in create cluster section*
+            - region: us-central-1
+            - Create
+        - Click your cluster name > VM INSTANCES > Click SSH
+        - *in ssh console*
+            - run: hdfs dfs -cp gs://cloud-training/gsp323/data.txt /data.txt
+            - Close SSH window
+        - SUBMIT JOB
+        - *in submit a job section*
+                Field 	                Value
+            - Region 	            us-central1
+            - Job type 	            Spark
+            - Main class or jar 	org.apache.spark.examples.SparkPageRank
+            - Jar files 	        file:///usr/lib/spark/examples/jars/spark-examples.jar
+            - Arguments 	        /data.txt
+            
+# Task 3: Run a simple Dataprep job
+    3.1 Import csv to dataprep
+        - Navigation menu > Dataprep > Import Data
+        - *in import data section*
+            - Choose a file or folder: gs://cloud-training/gsp323/runs.csv
+            - Click Go
+    3.2 Transform data
+        - Search column10 column
+        - See detail page > click FAILURE > Click Delete rows with selected values
+        - Search column9 column
+        - Click filter row
+        - *in filter rows section*
+            - Condition: Contains
+            - Pattern to match: /(^0$|^0\.0$)/
+            - Action: Delete matching rows
+            - Click Add
+        - Confirm the recipe (total 11 steps -> 2 delete, 9 rename)
+        - Run Job
+
+# Task 4: AI
+    4.1 Use Google Cloud Speech API to analyze the audio file
+        - Navigation menu> APIs & Services > Credentials
+        - Click CREATE CREDENTIALS > Choose API > Copy your API Key
+        - Click RESTRICT KEY
+        - Open cloud shell
+        - *in cloud shell*
+            - run: export API_KEY=<YOUR-API-KEY>
+            - run: nano gsc-request.json
+            - copy this and save: 
+                {
+                  "config": {
+                      "encoding":"FLAC",
+                      "languageCode": "en-US"
+                  },
+                  "audio": {
+                      "uri":"gs://cloud-training/gsp323/task4.flac"
+                  }
+                }
+            - run: curl -s -X POST -H "Content-Type: application/json" --data-binary @gsc-request.json "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > task4-gcs.result
+            - run: gsutil cp task4-gcs.result gs://<YOUR-PROJECT_ID>-marking/task4-gcs.result
+    4.2 Use the Cloud Natural Language API to analyze the sentence from text about Odin. 
+        - *in cloud shell*
+            - run: nano gvi-request.json
+            - copy this and save: 
+                {
+                   "inputUri":"gs://spls/gsp154/video/train.mp4",
+                   "features": [
+                       "LABEL_DETECTION"
+                   ]
+                }
+            - exit to cloud console
+        - Navigation menu > APIs & Services > Credentials
+        - ADD KEY > Create new key > Choose JSON > Click Create > Download file > 
+        - Rename it to key.json in your local computer
+        - *in cloud shell*
+            - run: gcloud auth activate-service-account --key-file key.json
+            - run: export TOKEN=$(gcloud auth print-access-token)
+            - run: curl -s -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(gcloud auth print-access-token)'' 'https://videointelligence.googleapis.com/v1/videos:annotate' -d @gvi-request.json > task4-gvi.result
+            - run: gsutil cp task4-gvi.result gs://<YOUR-PROJECT_ID>-marking/task4-gvi.result
