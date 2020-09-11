@@ -90,8 +90,7 @@ WITH india_cases_by_date AS (
         date,
         SUM(cumulative_confirmed) AS cases
     FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-    WHERE
-        country_name ="India" AND date BETWEEN '2020-02-21' AND '2020-03-15'
+    WHERE country_name ="India" AND date BETWEEN '2020-02-21' AND '2020-03-15'
     GROUP BY date
     ORDER BY date ASC 
 ), 
@@ -118,12 +117,11 @@ WHERE net_new_cases=0
 WITH us_cases_by_date AS (
     SELECT
         date,
-        SUM(cumulative_confirmed) AS cases
-    FROM
-        `bigquery-public-data.covid19_open_data.covid19_open_data`
-    WHERE country_name="United States of America" AND date between '2020-03-22' AND '2020-04-20'
+        SUM( cumulative_confirmed ) AS cases
+    FROM bigquery-public-data.covid19_open_data.covid19_open_data`
+    WHERE country_name="United States of America" AND date between '2020-03-22' and '2020-04-20'
     GROUP BY date
-    ORDER BY date ASC 
+    ORDER BY date ASC
 ), 
 us_previous_day_comparison AS (
     SELECT
@@ -131,17 +129,17 @@ us_previous_day_comparison AS (
         cases,
         LAG(cases) OVER(ORDER BY date) AS previous_day,
         cases - LAG(cases) OVER(ORDER BY date) AS net_new_cases,
-        (cases - LAG(cases) OVER(ORDER BY date))*100/LAG(cases) OVER(ORDER BY date) AS percentage_increase
+       (cases - LAG(cases) OVER(ORDER BY date))*100/LAG(cases) OVER(ORDER BY date) AS percentage_increase
     FROM us_cases_by_date
 )
-
-SELECT 
-    date, 
-    cases AS Confirmed_Cases_On_Day, 
-    previous_day AS Confirmed_Cases_Previous_Day, 
+SELECT
+    Date,
+    cases AS Confirmed_Cases_On_Day,
+    previous_day AS Confirmed_Cases_Previous_Day,
     percentage_increase AS Percentage_Increase_In_Cases
 FROM us_previous_day_comparison
 WHERE percentage_increase > 10
+
 
 -- Expected:
 -- Row 	    Date 	    Confirmed_Cases_On_Day 	Confirmed_Cases_Previous_Day 	Percentage_Increase_In_Cases
@@ -201,24 +199,23 @@ summary AS (
         total_cASes AS first_day_cases,
         LEAD(total_cASes) OVER(ORDER BY date) AS last_day_cases,
         DATE_DIFF(LEAD(date) OVER(ORDER BY date),date, day) AS days_diff
-    FROM
-        france_cases
+    FROM france_cases
     LIMIT 1
 )
 
-SELECT
+SELECT 
     first_day_cases, 
-    last_day_cASes, 
+    last_day_cases, 
     days_diff, 
-    POW((last_day_cases/first_day_cases),(1/days_diff))-1 AS cdgr
+    POWER(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
 FROM summary
 
 -- Expected
--- Row 	first_day_cases      last_day_cases 	days_diff 	cdgr 	
--- 1       3                 216270             107             0.11019866604973183
+-- Row      first_day_cases      last_day_cases     days_diff 	    cdgr 	
+-- 1        3                    216270             107             0.11019866604973183
 
 
--- Create a Datastudio report
+-- Query 10: Create a Datastudio report
 -- Create a Datastudio report that plots the following for the United States:
     -- Number of Confirmed Cases
     -- Number of Deaths
