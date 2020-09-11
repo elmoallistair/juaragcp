@@ -33,12 +33,12 @@ FROM (
 WHERE death_count > 100
 
 -- Expected:
--- Row 	count_of_states 	
+-- Row 	    count_of_states 	
 -- 1	    30
 
 
 -- Query 3: Identifying Hotspots
--- "List all the states in the United States of America that had more than 1000 confirmed cASes on Apr 10, 2020?" 
+-- "List all the states in the United States of America that had more than 1000 confirmed cases on Apr 10, 2020?" 
 SELECT 
     subregion1_name AS state,
     SUM(cumulative_confirmed) AS total_confirmed_cases
@@ -50,10 +50,10 @@ ORDER BY total_confirmed_cases DESC
 
 -- Expected:
 -- Row 	    state 	    total_confirmed_cases 	
--- 1	    null        501560
--- 2	    New York    485750
--- 3	    New Jersey  108527
--- ...      ...         ...	
+-- 1	    null            501560
+-- 2	    New York        485750
+-- 3	    New Jersey      108527
+-- ...      ...             ...	
 
 
 -- Query 4: Fatality Ratio
@@ -66,8 +66,8 @@ FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
 WHERE country_name="Italy" AND date BETWEEN "2020-04-01" AND "2020-04-30"
 
 -- Expected:
--- Row 	total_confirmed_cases 	total_deaths 	case_fatality_ratio 	
--- 1	    14452840                1288342         8.91410961444256
+-- Row 	    total_confirmed_cases 	total_deaths 	case_fatality_ratio 	
+-- 1	    14452840                    1288342         8.91410961444256
 	
 
 -- Query 5: Identifying specific day
@@ -145,10 +145,10 @@ WHERE percentage_increase > 10
 
 -- Expected:
 -- Row 	    Date 	    Confirmed_Cases_On_Day 	Confirmed_Cases_Previous_Day 	Percentage_Increase_In_Cases
--- 1	    2020-03-23  174502                  138993                          25.547329721640658
--- 2	    2020-03-24  210889                  174502                          20.8519100067621
--- 3	    2020-03-25  258482                  210889                          22.567796328874433
--- ...      ...         ...	                    ...                             ...
+-- 1	    2020-03-23      174502                      138993                          25.547329721640658
+-- 2	    2020-03-24      210889                      174502                          20.8519100067621
+-- 3	    2020-03-25      258482                      210889                          22.567796328874433
+-- ...      ...             ...	                        ...                             ...
 
 
 -- Query 8: Recovery rate
@@ -177,7 +177,7 @@ ORDER BY recovery_rate desc
 LIMIT 10
 
 -- Expected:
--- Row 	    country 	confirmed_cases 	recovered_cases 	recovery_rate 	
+-- Row 	    country 	confirmed_cases     recovered_cases 	recovery_rate 	
 -- 1	    France      216270              3035852             1403.7323715725713
 -- 2	    China       157738              147983              93.81569437928717
 -- 3	    Italy       643471              210372              32.69331485024189
@@ -214,8 +214,8 @@ SELECT
 FROM summary
 
 -- Expected
--- Row 	first_day_cases 	last_day_cases 	days_diff 	cdgr 	
--- 1       3                   216270          107         0.11019866604973183
+-- Row 	first_day_cases      last_day_cases 	days_diff 	cdgr 	
+-- 1       3                 216270             107             0.11019866604973183
 
 
 -- Create a Datastudio report
@@ -233,10 +233,10 @@ WHERE date BETWEEN '2020-03-15' AND '2020-04-30' AND country_name ="United State
 GROUP BY date
 
 -- Expected:
--- Row 	    date 	        country_cases 	country_deaths 	
--- 1	    2020-03-15      16708           218
--- 2	    2020-03-16      23563           295
--- 3	    2020-03-17      32882           384
+-- Row 	    date 	    country_cases 	country_deaths 	
+-- 1	    2020-03-15      16708               218
+-- 2	    2020-03-16      23563               295
+-- 3	    2020-03-17      32882               384
 
 -- After executing:
     -- Click EXPLORE DATA
