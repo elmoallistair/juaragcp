@@ -22,7 +22,7 @@
         - Navigation Menu > Dataflow > CREATE JOB FROM TEMPLATE
         - *in create job from template section*
             - Job name: give an arbitrary job name
-            - Dataflow template: Process Data in Bulk (batch) -> Text Files on Cloud Storage BigQuery
+            - Dataflow template: Process Data in Bulk (batch) -> Text Files on Cloud Storage to BigQuery
             - Required parameters:
                     Field 	                        Value
                 - JavaScript UDF path           gs://cloud-training/gsp323/lab.js
@@ -42,7 +42,6 @@
             - Create
         - Click your cluster name > VM INSTANCES > Click SSH
         - Go Complete Task 3
-        - *in ssh console* -- do this after completing Task 3 job
             - run: hdfs dfs -cp gs://cloud-training/gsp323/data.txt /data.txt
             - Close SSH window
         - SUBMIT JOB
@@ -86,7 +85,6 @@
                 column10    state
         - Confirm the recipe (total 11 steps -> 2 delete, 9 rename)
         - Run Job
-        - Back to task 2.1 after job done
 
 # Task 4: AI
     - Navigation menu> APIs & Services > Credentials
