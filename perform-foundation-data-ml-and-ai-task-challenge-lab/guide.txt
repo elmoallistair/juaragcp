@@ -6,26 +6,16 @@
         - Navigation menu > BigQuery > Click your project
         - Click CREATE DATASET (Dataset ID: lab, leave all default) > Create dataset
         - Click lab dataset, click CREATE TABLE
+        - *in cloud shell*
+            - run: gsutil cp gs://cloud-training/gsp323/lab.csv .
+            - run: gsutil cp gs://cloud-training/gsp323/lab.schema .
+            - run: cat lab.schema # copy the value within []
         - *in create table dialog*
             - Create table from: Google Cloud Storage
             - Select file from GCS bucket: gs://cloud-training/gsp323/lab.csv
             - Table name: customers
             - Enable edit as text
-                - Paste this:
-                [
-                    {"type":"STRING","name":"guid"},
-                    {"type":"BOOLEAN","name":"isActive"},
-                    {"type":"STRING","name":"firstname"},
-                    {"type":"STRING","name":"surname"},
-                    {"type":"STRING","name":"company"},
-                    {"type":"STRING","name":"email"},
-                    {"type":"STRING","name":"phone"},
-                    {"type":"STRING","name":"address"},
-                    {"type":"STRING","name":"about"},
-                    {"type":"TIMESTAMP","name":"registered"},
-                    {"type":"FLOAT","name":"latitude"},
-                    {"type":"FLOAT","name":"longitude"}
-                ]
+                - Paste output from previous cat lab.schema
     1.2 Create bucket
         - Navigation Menu > Storage > CREATE BUCKET > use your project id as bucket name > Create
     1.3 Create dataflow job
@@ -51,7 +41,8 @@
             - region: us-central-1
             - Create
         - Click your cluster name > VM INSTANCES > Click SSH
-        - *in ssh console*
+        - Go Complete Task 3
+        - *in ssh console* -- do this after completing Task 3 job
             - run: hdfs dfs -cp gs://cloud-training/gsp323/data.txt /data.txt
             - Close SSH window
         - SUBMIT JOB
@@ -67,28 +58,49 @@
     3.1 Import csv to dataprep
         - Navigation menu > Dataprep > Import Data
         - *in import data section*
-            - Choose a file or folder: gs://cloud-training/gsp323/runs.csv
+            - Click pencil icon under Choose a file or folder
+            - Copy: gs://cloud-training/gsp323/runs.csv
             - Click Go
+            - See imported runs.csv in right pane, click Import & Wrangle 
     3.2 Transform data
         - Search column10 column
-        - See detail page > click FAILURE > Click Delete rows with selected values
+        - See detail page > click FAILURE > Click Delete rows with in suggestion menu > Add
         - Search column9 column
-        - Click filter row
+        - Click dropdown menu > Filter rows > On column Values > Custom filter...
         - *in filter rows section*
             - Condition: Contains
+            - Column: column9
             - Pattern to match: /(^0$|^0\.0$)/
             - Action: Delete matching rows
             - Click Add
+        - Rename column > choose any column > click dropdown menu > rename
+        - *in rename columns section*
+            - Options: Manual rename:
+            - Click add in columns section
+            - Columns
+            -
+                column2 runid
+                column3 userid
+                column4 labid
+                column5 lab_title
+                column6 start
+                column7 end
+                column8 time
+                column9 score
+                column10 state
         - Confirm the recipe (total 11 steps -> 2 delete, 9 rename)
         - Run Job
+        - Back to task 2.1 after job done
 
 # Task 4: AI
-    4.1 Use Google Cloud Speech API to analyze the audio file
-        - Navigation menu> APIs & Services > Credentials
+    - Navigation menu> APIs & Services > Credentials
         - Click CREATE CREDENTIALS > Choose API > Copy your API Key
-        - Click RESTRICT KEY
+        - Click RESTRICT KEY > SAVE > wait 5 min
         - Open cloud shell
+    
+    4.1 Use Google Cloud Speech API to analyze the audio file
         - *in cloud shell*
+            - *note*: follow this lab https://www.qwiklabs.com/focuses/588?parent=catalog
             - run: export API_KEY=<YOUR-API-KEY>
             - run: nano gsc-request.json
             - copy this and save: 
@@ -103,22 +115,29 @@
                 }
             - run: curl -s -X POST -H "Content-Type: application/json" --data-binary @gsc-request.json "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > task4-gcs.result
             - run: gsutil cp task4-gcs.result gs://<YOUR-PROJECT_ID>-marking/task4-gcs.result
+   
     4.2 Use the Cloud Natural Language API to analyze the sentence from text about Odin. 
         - *in cloud shell*
-            - run: nano gvi-request.json
-            - copy this and save: 
-                {
-                   "inputUri":"gs://spls/gsp154/video/train.mp4",
-                   "features": [
-                       "LABEL_DETECTION"
-                   ]
-                }
-            - exit to cloud console
-        - Navigation menu > APIs & Services > Credentials
-        - ADD KEY > Create new key > Choose JSON > Click Create > Download file > 
-        - Rename it to key.json in your local computer
+            - *note*: follow this lab https://www.qwiklabs.com/focuses/582?parent=catalog
+            - run: gcloud ml language analyze-entities --content="Old Norse texts portray Odin as one-eyed and long-bearded, frequently wielding a spear named Gungnir and wearing a cloak and a broad hat." > task4-cnl.result
+            - run: gsutil cp task4-cnl.result gs://YOUR_PROJECT-marking/task4-cnl.result
+   
+    4.3 Use Google Video Intelligence and detect all text on the video
         - *in cloud shell*
+            - *note*: follow this lab https://www.qwiklabs.com/focuses/603?parent=catalog
+            - run: gcloud iam service-accounts create quickstart
+            - run: gcloud iam service-accounts keys create key.json --iam-account quickstart@<your-project-123>.iam.gserviceaccount.com
             - run: gcloud auth activate-service-account --key-file key.json
-            - run: export TOKEN=$(gcloud auth print-access-token)
-            - run: curl -s -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(gcloud auth print-access-token)'' 'https://videointelligence.googleapis.com/v1/videos:annotate' -d @gvi-request.json > task4-gvi.result
-            - run: gsutil cp task4-gvi.result gs://<YOUR-PROJECT_ID>-marking/task4-gvi.result
+            - run: gcloud auth print-access-token
+            - run: nano request.json
+                - replace and save:
+                    {
+                       "inputUri":"gs://spls/gsp154/video/train.mp4",
+                       "features": [
+                           "LABEL_DETECTION"
+                       ]
+                    }
+            - run: curl -s -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(gcloud auth print-access-token)'' 'https://videointelligence.googleapis.com/v1/videos:annotate' \ -d @task4-gvi.result
+            - run: gsutil cp task4-gvi.result gs://YOUR_PROJECT-marking/task4-gvi.result
+
+
