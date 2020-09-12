@@ -111,12 +111,13 @@ SELECT * FROM taxitrips
 -- start query	
 #standardSQL
 SELECT
-    SQRT(mean_squared_error) AS rmse
+    *
 FROM
-    ML.EVALUATE(MODEL taxirides.fare_model, (
-        WITH taxitrips AS (
-                SELECT *, ST_Distance(ST_GeogPoint(pickuplon, pickuplat), ST_GeogPoint(dropofflon, dropofflat)) AS euclidean
-                FROM `taxirides.taxi_training_data` 
+    ML.PREDICT(
+        MODEL `taxirides.fare_model`,(
+            WITH taxitrips AS (
+                SELECT *, ST_Distance(ST_GeogPoint(pickuplon, pickuplat)   , ST_GeogPoint(dropofflon, dropofflat)) AS    euclidean
+                FROM `taxirides.report_prediction_data` 
             ) SELECT * FROM taxitrips 
         )
     )
