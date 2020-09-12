@@ -73,21 +73,17 @@
             - Pattern to match: /(^0$|^0\.0$)/
             - Action: Delete matching rows
             - Click Add
-        - Rename column > choose any column > click dropdown menu > rename
-        - *in rename columns section*
-            - Options: Manual rename:
-            - Click add in columns section
-            - Columns
-            -
-                column2 runid
-                column3 userid
-                column4 labid
-                column5 lab_title
-                column6 start
-                column7 end
-                column8 time
-                column9 score
-                column10 state
+        - For rename column > click column one by one > Rename
+                before      after
+                column2     runid
+                column3     userid
+                column4     labid
+                column5     lab_title
+                column6     start
+                column7     end
+                column8     time
+                column9     score
+                column10    state
         - Confirm the recipe (total 11 steps -> 2 delete, 9 rename)
         - Run Job
         - Back to task 2.1 after job done
