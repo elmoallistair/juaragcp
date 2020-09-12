@@ -99,7 +99,7 @@
             - *note*: follow this lab https://www.qwiklabs.com/focuses/588?parent=catalog
             - run: export API_KEY=<YOUR-API-KEY>
             - run: nano gsc-request.json
-            - copy this and save: 
+            - copy and save: 
                 {
                   "config": {
                       "encoding":"FLAC",
@@ -126,7 +126,7 @@
             - run: gcloud auth activate-service-account --key-file key.json
             - run: gcloud auth print-access-token
             - run: nano request.json
-                - replace and save:
+                - copy and save:
                     {
                        "inputUri":"gs://spls/gsp154/video/train.mp4",
                        "features": [
