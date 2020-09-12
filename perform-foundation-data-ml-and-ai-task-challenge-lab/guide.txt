@@ -22,7 +22,7 @@
         - Navigation Menu > Dataflow > CREATE JOB FROM TEMPLATE
         - *in create job from template section*
             - Job name: give an arbitrary job name
-            - Dataflow template: Process Data in Bulk (batch) -> Text Files on Cloud Storage Pub/Sub
+            - Dataflow template: Process Data in Bulk (batch) -> Text Files on Cloud Storage BigQuery
             - Required parameters:
                     Field 	                        Value
                 - JavaScript UDF path           gs://cloud-training/gsp323/lab.js
