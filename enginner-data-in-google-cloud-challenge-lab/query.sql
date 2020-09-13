@@ -41,7 +41,7 @@ WHERE
 -- end query
 
 -- 1.2 save query, follow this:
-    - click SAVE QUERY under query editor, choose BiQquery table
+    - click SAVE RESULT under query editor, choose BiQquery table
     - input taxi_training_data as table name
     - save and check your first progress
 
@@ -123,5 +123,5 @@ FROM
     )
 -- end query	
 
--- 3.3 save query, repeat step 1.2 step with table name: 2015_fare_amount_predictions
+-- 3.3 save result, repeat step 1.2 step with table name: 2015_fare_amount_predictions
 -- check your third progress
