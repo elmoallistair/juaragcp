@@ -3,7 +3,7 @@
 
 # Task 1: Run a simple Dataflow job
     1.1 Create bigquery dataset
-        - Navigation menu > BigQuery > Click your project
+        - Navigation menu > BigQuery > Click your project >
         - Click CREATE DATASET (Dataset ID: lab, leave all default) > Create dataset
         - Click lab dataset, click CREATE TABLE
         - *in cloud shell*
@@ -36,7 +36,7 @@
 
 # Task 2: Run a simple Dataproc job
     2.1 Create Dataproc Cluster
-        - Navigation Menu > Dataproc > Cluster > Create Cluster
+        - Navigation Menu > Dataproc > Cluster > Create Cluster 
         - *in create cluster section*
             - region: us-central-1
             - Create
@@ -55,7 +55,7 @@
             
 # Task 3: Run a simple Dataprep job
     3.1 Import csv to dataprep
-        - Navigation menu > Dataprep > Import Data
+        - Navigation menu > Dataprep > Import Data > Choose GCS
         - *in import data section*
             - Click pencil icon under Choose a file or folder
             - Copy: gs://cloud-training/gsp323/runs.csv
