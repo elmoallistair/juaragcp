@@ -1,0 +1,9 @@
+{
+    "config": {
+        "encoding":"FLAC",
+        "languageCode": "en-US"
+    },
+    "audio": {
+        "uri":"gs://cloud-training/gsp323/task4.flac"
+    }
+}

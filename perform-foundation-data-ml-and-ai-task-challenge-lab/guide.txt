@@ -92,6 +92,7 @@
         - Click RESTRICT KEY > SAVE > wait 5 min
         - Open cloud shell
     
+    - You have the option to complete one of the tasks below:
     4.1 Use Google Cloud Speech API to analyze the audio file
         - *in cloud shell*
             - *note*: follow this lab https://www.qwiklabs.com/focuses/588?parent=catalog
@@ -114,16 +115,16 @@
         - *in cloud shell*
             - *note*: follow this lab https://www.qwiklabs.com/focuses/582?parent=catalog
             - run: gcloud ml language analyze-entities --content="Old Norse texts portray Odin as one-eyed and long-bearded, frequently wielding a spear named Gungnir and wearing a cloak and a broad hat." > task4-cnl.result
-            - run: gsutil cp task4-cnl.result gs://YOUR_PROJECT-marking/task4-cnl.result
+            - run: gsutil cp task4-cnl.result gs://<YOUR_PROJECT>-marking/task4-cnl.result
    
     4.3 Use Google Video Intelligence and detect all text on the video
         - *in cloud shell*
             - *note*: follow this lab https://www.qwiklabs.com/focuses/603?parent=catalog
-            - run: gcloud iam service-accounts create quickstart
-            - run: gcloud iam service-accounts keys create key.json --iam-account quickstart@<your-project-123>.iam.gserviceaccount.com
-            - run: gcloud auth activate-service-account --key-file key.json
+            - run: gcloeaccount.com
+            - run: gcloud auth activate-service-account --key-file key.jsonud iam service-accounts create quickstart
+            - run: gcloud iam service-accounts keys create key.json --iam-account quickstart@<your-project-123>.iam.gservic
             - run: gcloud auth print-access-token
-            - run: nano request.json
+            - run: nano gvi-request.json
                 - copy and save:
                     {
                        "inputUri":"gs://spls/gsp154/video/train.mp4",
@@ -131,7 +132,7 @@
                            "LABEL_DETECTION"
                        ]
                     }
-            - run: curl -s -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(gcloud auth print-access-token)'' 'https://videointelligence.googleapis.com/v1/videos:annotate' \ -d @task4-gvi.result
-            - run: gsutil cp task4-gvi.result gs://YOUR_PROJECT-marking/task4-gvi.result
+            - run: curl -s -H 'Content-Type: application/json' -H 'Authorization: Bearer '$(gcloud auth print-access-token)'' 'https://videointelligence.googleapis.com/v1/videos:annotate' \ > @task4-gvi.result
+            - run: gsutil cp task4-gvi.result gs://<YOUR_PROJECT>-marking/task4-gvi.result
 
 
