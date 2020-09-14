@@ -118,7 +118,7 @@ WITH us_cases_by_date AS (
     SELECT
         date,
         SUM( cumulative_confirmed ) AS cases
-    FROM bigquery-public-data.covid19_open_data.covid19_open_data`
+    FROM bigquery-public-data.covid19_open_data.covid19_open_data
     WHERE country_name="United States of America" AND date between '2020-03-22' and '2020-04-20'
     GROUP BY date
     ORDER BY date ASC
