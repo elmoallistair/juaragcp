@@ -1,21 +1,29 @@
+# Setup
+gcloud config set compute/zone us-central1-a
 
 # Task 1: Download the monolith code and build your container
 # Reference: Deploy Your Website on Cloud Run
 git clone https://github.com/googlecodelabs/monolith-to-microservices.git
 cd ~/monolith-to-microservices
 ./setup.sh
+
+gcloud services enable container.googleapis.com
+gcloud container clusters create fancy-cluster --num-nodes 3
+gcloud compute instances list
+
+cd ~/monolith-to-microservices
+./deploy-monolith.sh
+kubectl get service monolith
+
 cd ~/monolith-to-microservices/monolith
-npm start
-gcloud services enable cloudbuild.googleapis.com
 gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/fancytest:1.0.0 .
 
 # Task 2: Create a kubernetes cluster and deploy the application
 # Reference: Lab Deploy, Scale, and Update Your Website on Google Kubernetes Engine
-gcloud config set compute/zone us-central1-a
-gcloud services enable container.googleapis.com
-gcloud container clusters create fancy-cluster --num-nodes 3
 kubectl create deployment fancytest --image=gcr.io/${GOOGLE_CLOUD_PROJECT}/fancytest:1.0.0
+kubectl get all
 kubectl expose deployment fancytest --type=LoadBalancer --port 80 --target-port 8080
+kubectl get service fancytest
 
 # Task 3: Create a containerized version of your Microservices
 # Reference: Lab Migrating a Monolithic Website to Microservices on Google Kubernetes Engine
@@ -25,16 +33,14 @@ cd ~/monolith-to-microservices/microservices/src/products
 gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/products:1.0.0 .
 
 # Task 4: Deploy the new microservices
-# Orders Microservice
-kubectl create deployment orders --image=gcr.io/${GOOGLE_CLOUD_PROJECT}/order:1.0.0
-kubectl expose deployment orders --type=LoadBalancer --port 80 --target-port 8081
-# Products Microservice
+kubectl create deployment orders --image=gcr.io/${GOOGLE_CLOUD_PROJECT}/orders:1.0.0
 kubectl create deployment products --image=gcr.io/${GOOGLE_CLOUD_PROJECT}/products:1.0.0
+kubectl get all
+kubectl expose deployment orders --type=LoadBalancer --port 80 --target-port 8081
 kubectl expose deployment products --type=LoadBalancer --port 80 --target-port 8082
-# LAB ISSUE: orders worlkload error, Error Status: Does not have minimum availability
-# Message in Qwiklabs: Message: Please create a deployment named orders with image 'orders:1.0.0' and wait till it is created. 
+kubectl get service orders
+kubectl get service products
 
-# ===-- script below not yet tested ---===
 
 # Task 5: Create a containerized version of the Frontend microservice
 cd ~/monolith-to-microservices/react-app
