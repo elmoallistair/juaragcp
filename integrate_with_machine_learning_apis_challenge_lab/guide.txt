@@ -11,10 +11,8 @@ export GOOGLE_APPLICATION_CREDENTIALS=${PWD}/sa-key.json
 gsutil cp gs://$DEVSHELL_PROJECT_ID/analyze-images.py .
 # Check your progress #1 and #2
 
-# modify analyze-images.py 
-# note: copy analyze-images.py in this repo folder
-
-# Run this in cloud shell:
+# use nano or editor to modify analyze-images.py, check this file in repo folder
+# After modify, run this in cloud shell:
 python3 analyze-images.py $DEVSHELL_PROJECT_ID $DEVSHELL_PROJECT_ID
 # Check your progress #3 and #4
 
