@@ -10,7 +10,7 @@ git clone https://github.com/GoogleCloudPlatform/dataflow-contact-center-speech-
         - LOCATION MUST BE IN us-central1
 
 # Task 2: Create a Cloud Function
-    - Go to Cloud Function > Create
+    - Go to Cloud Function > Create Function
         - name: use default
         - Trigger: Cloud Storage
             - Event Type: Finalize/Create
@@ -20,7 +20,7 @@ git clone https://github.com/GoogleCloudPlatform/dataflow-contact-center-speech-
         - package.json: use this code https://github.com/GoogleCloudPlatform/dataflow-contact-center-speech-analysis/blob/master/saf-longrun-job-func/package.json
         - Entry point: safLongRunJobFunc
         - Click Environment Variables, Networking, Timeouts and more. Make sure region is us-central1
-        - CREATE
+        - DEPLOY
 
 # Task 3: Create a BigQuery dataset
     - Go to BigQuery > Create dataset
