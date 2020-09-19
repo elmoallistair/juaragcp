@@ -1,0 +1,79 @@
+#Open Big Query
+#Insert This SQL
+
+SELECT
+  pickup_datetime,
+  pickup_longitude AS pickuplon,
+  pickup_latitude AS pickuplat,
+  dropoff_longitude AS dropofflon,
+  dropoff_latitude AS dropofflat,
+  passenger_count AS passengers,
+  (tolls_amount + fare_amount ) AS fare_amount
+FROM
+  `qwiklabs-gcp-02-xxxxxxxxx.taxirides.historical_taxi_rides_raw`  #replace with your gcp project id
+WHERE
+  trip_distance>0
+  AND fare_amount>=2.5
+  AND pickup_longitude > -75 #limiting of the distance the taxis travel out
+  AND pickup_longitude < -73
+  AND dropoff_longitude > -75
+  AND dropoff_longitude < -73
+  AND pickup_latitude > 40
+  AND pickup_latitude < 42
+  AND dropoff_latitude > 40
+  AND dropoff_latitude < 42
+  AND passenger_count>0
+  AND RAND()<999999/1031673361
+
+#Click Run 
+#If have done Click Save Result Near Query Result
+#On Save Query Result Pick BigQuery Table
+#Set Your Project and database to taxirides
+#input table name with :
+taxi_training_data
+
+#Save
+#Check Task 1
+--------------------------------
+CREATE OR REPLACE MODEL
+  taxirides.fare_model OPTIONS (model_type='linear_reg',
+    labels=['fare_amount']) AS
+WITH
+  taxitrips AS (
+  SELECT
+    *
+  FROM
+    `taxirides.taxi_training_data`)
+SELECT
+  *
+FROM
+  taxitrips
+
+#Run
+#CHECK Task 2
+#copy and paste this sql again
+SELECT
+  *
+FROM
+  ML.PREDICT(MODEL taxirides.fare_model,
+    (
+    WITH
+      taxitrips AS (
+      SELECT
+        *,
+        ST_Distance(ST_GeogPoint(pickuplon,
+            pickuplat),
+          ST_GeogPoint(dropofflon,
+            dropofflat)) AS euclidean
+      FROM
+        `taxirides.report_prediction_data`)
+    SELECT
+      *
+    FROM
+      taxitrips))
+#Run
+#Save result again with BigQuery
+#Input table name with:
+2015_fare_amount_predictions
+
+#Check Task 3
