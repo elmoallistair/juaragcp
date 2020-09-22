@@ -49,7 +49,7 @@
             - Create
         - Create second firewall rule
             - Name: allow-bastion-prod-ssh
-            - Network: griffin-dev-vpc
+            - Network: griffin-prod-vpc
             - Target tags: bastion
             - Source IP ranges: 192.168.48.0/20
             - Protols and ports: check tcp > fill with 22
