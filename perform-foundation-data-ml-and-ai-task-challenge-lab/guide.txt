@@ -108,6 +108,8 @@
                   }
                 }
             - run: curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
-            - run: gsutil cp result.json gs://<your_project_id>/task4-gcs.result
+            - run: gsutil cp result.json gs://<your_project_id>-marking/task4-gcs.result
+            - run: gsutil cp result.json gs://<your_project_id>-marking/task4-cnl.result
+            - run: gsutil cp result.json gs://<your_project_id>-marking/task4-gvi.result
 
 
