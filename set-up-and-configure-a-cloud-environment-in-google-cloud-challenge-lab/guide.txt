@@ -96,7 +96,7 @@
             - Replace <password_goes_here> to stormwind_rules
             - Save
         - Connect to Kubernetes cluster > Run in Cloud Shell
-            - run: gcloud container clusters get-credentials griffin-dev --zone=us-east1-b
+            - run: gcloud container clusters get-credentials griffin-dev --zone=us-east1
             - run: kubectl apply -f wp-env.yaml
             - run: gcloud iam service-accounts keys create key.json --iam-account=cloud-sql-proxy@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
             - run: kubectl create secret generic cloudsql-instance-credentials --from-file key.json
