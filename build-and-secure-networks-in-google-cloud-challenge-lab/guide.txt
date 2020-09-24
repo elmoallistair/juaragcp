@@ -35,7 +35,7 @@
         - Name: allow-ssh-from-mgmt-subnet
         - Network: acme-vpc
         - Target tags: bastion and juice-shop
-        - Source IP ranges: <IP address range of your aceme-mgmt-subnet>
+        - Source IP ranges: <IP address range of your acme-mgmt-subnet>
             # Note: go to VPC network and have a look to IP address ranges of acme-mgmt-subnet
         - Protocols and ports: Select TCP and enter 22 (to allow HTTP)
 
