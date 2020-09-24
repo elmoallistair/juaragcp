@@ -37,7 +37,7 @@
         - Target tags: bastion and juice-shop
         - Source IP ranges: <IP address range of your aceme-mgmt-subnet>
             # Note: go to VPC network and have a look to IP address ranges of acme-mgmt-subnet
-        - Protocols and ports: Select TCP and enter 22 (to allow HTTP)
+        - Protocols and ports: Select TCP and enter 22 (to allow SSH)
 
 # Task 6: SSH to bastion host via IAP and juice-shop via bastion 
     - Go to Compute Engine > VM instances 
