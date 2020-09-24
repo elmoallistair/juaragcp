@@ -8,7 +8,7 @@
     -- Search for "COVID-19 Open Data" 
     -- View dataset
 
--- Query 1: Total Confirmed CASes
+-- Query 1: Total Confirmed Cases
 -- What was the total count of confirmed cases on Apr 15, 2020?
 SELECT SUM(cumulative_confirmed) AS total_cases_worldwide 
 FROM `bigquery-public-data.covid19_open_data.covid19_open_data` 
@@ -74,7 +74,7 @@ WHERE country_name="Italy" AND date BETWEEN "2020-04-01" AND "2020-04-30"
 -- "On what day did the total number of deaths cross 10000 in Italy?" 
 SELECT date
 FROM `bigquery-public-data.covid19_open_data.covid19_open_data` 
-WHERE country_name="Italy" AND cumulative_deceASed > 10000
+WHERE country_name="Italy" AND cumulative_deceased > 10000
 ORDER BY date ASC
 LIMIT 1
 
@@ -118,7 +118,7 @@ WITH us_cases_by_date AS (
     SELECT
         date,
         SUM( cumulative_confirmed ) AS cases
-    FROM bigquery-public-data.covid19_open_data.covid19_open_data`
+    FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
     WHERE country_name="United States of America" AND date between '2020-03-22' and '2020-04-20'
     GROUP BY date
     ORDER BY date ASC
@@ -163,8 +163,8 @@ WITH cases_by_country AS (
 ), 
 recovered_rate AS (
     SELECT
-        country, cASes, recovered_cases,
-        (recovered_cASes * 100)/cases AS recovery_rate
+        country, cases, recovered_cases,
+        (recovered_cases * 100)/cases AS recovery_rate
     FROM cases_by_country
 )
 
@@ -196,8 +196,8 @@ WITH france_cases AS (
 ), 
 summary AS (
     SELECT
-        total_cASes AS first_day_cases,
-        LEAD(total_cASes) OVER(ORDER BY date) AS last_day_cases,
+        total_cases AS first_day_cases,
+        LEAD(total_cases) OVER(ORDER BY date) AS last_day_cases,
         DATE_DIFF(LEAD(date) OVER(ORDER BY date),date, day) AS days_diff
     FROM france_cases
     LIMIT 1
