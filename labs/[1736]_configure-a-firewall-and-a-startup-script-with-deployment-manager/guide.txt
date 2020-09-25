@@ -1,0 +1,13 @@
+# Configure a Firewall and a Startup Script with Deployment Manager
+# https://qwiklabs.com/focuses/1736?parent=catalog
+
+# Open the Cloud Shell, run:
+mkdir deployment_manager
+cd deployment_manager
+gsutil cp gs://spls/gsp302/* .
+
+# use nano or open editor to edit qwiklabs.jinja and qwiklabs.yaml
+# check the in this repo folder for reference
+
+# back to cloud shell, run:
+gcloud deployment-manager deployments create vm-test --config=qwiklabs.yaml

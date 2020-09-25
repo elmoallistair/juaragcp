@@ -1,0 +1,16 @@
+# Google Cloud Essential Skills: Challenge Lab 
+# https://www.qwiklabs.com/focuses/1734?parent=catalog
+
+# Task 1: Create a Compute Engine instance, add necessary firewall rules.
+    - Navigation menu > Compute Engine > VM instances
+    - Create VM with name "apache" and enable "allow http traffic"
+
+# Task 2: Configure Apache2 Web Server in your instance
+    - SSH into apache VM
+        - *in ssh*
+        - run: sudo apt-get update
+        - run: sudo apt install apache2
+        - exit ssh
+
+# Task 3: Test your server 
+    - Click apache VM External IP and verify Apache2 Debian Default Page showed up
