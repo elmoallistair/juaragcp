@@ -2,7 +2,7 @@
 # https://www.qwiklabs.com/focuses/1734?parent=catalog
 
 # Task 1: Create a Compute Engine instance, add necessary firewall rules.
-    - Navigation menu > VM Engine
+    - Navigation menu > Compute Engine > VM instances
     - Create VM with name "apache" and enable "allow http traffic"
 
 # Task 2: Configure Apache2 Web Server in your instance
