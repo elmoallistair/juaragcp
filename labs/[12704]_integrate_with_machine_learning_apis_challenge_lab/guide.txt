@@ -14,6 +14,18 @@ gsutil cp gs://$DEVSHELL_PROJECT_ID/analyze-images.py .
 # use nano or editor to modify analyze-images.py, check this file in repo folder
 # After modify, run this in cloud shell:
 python3 analyze-images.py $DEVSHELL_PROJECT_ID $DEVSHELL_PROJECT_ID
+
+if you got this error:
+#Traceback (most recent call last):
+#  File "analyze-images.py", line 65, in <module>
+#   image = vision.types.Image(content=file_content)
+#AttributeError: module 'google.cloud.vision' has no attribute 'types'
+
+#go to code editor and change to the following:
+line 58: from google.cloud import vision_v1
+line 65: image = vision_v1.types.Image(content=file_content)
+#and then run again python3 analyze-images.py $DEVSHELL_PROJECT_ID $DEVSHELL_PROJECT_ID
+
 # Check your progress #3 and #4
 
 # Go to BigQuery, run:
