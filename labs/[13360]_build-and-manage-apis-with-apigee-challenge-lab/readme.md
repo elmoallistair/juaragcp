@@ -1,4 +1,4 @@
-# [Secure Workloads in Google Kubernetes Engine: Challenge Lab](https://www.qwiklabs.com/focuses/13360?parent=catalog)
+# [Build and Manage APIs with Apigee: Challenge Lab](https://www.qwiklabs.com/focuses/13360?parent=catalog)
 
 
 ## Overview
