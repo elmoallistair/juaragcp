@@ -15,3 +15,5 @@ Welcome to the season 4 of #JuaraGCP. In this season you get an opportunity to s
 * Google Cloud [Documentation](https://cloud.google.com/docs)
 * Have a look at courses offered in [Coursera](https://www.coursera.org/googlecloud)
 * Hands-on training with [Qwiklabs](https://www.qwiklabs.com/)
+* Google Cloud Platform channel on [YouTube](https://www.youtube.com/user/googlecloudplatform)
+* [Google Cloud](https://cloud.google.com/blog/) and [Qwiklabs](http://blog.qwiklabs.com/tag/google-cloud-platform/) blogs
