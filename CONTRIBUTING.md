@@ -1,4 +1,10 @@
 # Contributing
+We are open source project and community contributions are essential to it's growing and success.
+
+Contributing to this repo is easy and you can give as little or as much time as you want.
+
+## What to contribute?
+*in progress* 
 
 ## Lab folder name format
 
