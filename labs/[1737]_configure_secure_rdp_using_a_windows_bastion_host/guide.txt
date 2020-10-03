@@ -23,6 +23,8 @@ Task 6 : The vm-securehost is running Microsoft IIS web server software.
 - Install Chrome RDP for Google Cloud Platform (https://chrome.google.com/webstore/detail/chrome-rdp-for-google-clo/mpbbnannobiobpnfblimoapbephgifkm)
 - Go to Compute Engine > VM instances
 - Click RDP on vm-bastionhost, fill username with app_admin and password with your copied vm-bastionhost's password 
-- Click Search and search Remote Desktop Manager
+- Click Search, search for Remote Desktop Connection and run it
+- Copy and paste the internal ip from vm-securehost, click Connect
+- Fill username with app_admin and password with your copied vm-securehost's password 
 - Click Search, type Powershell, right click and Run as Administrator
 - Run: Install-WindowsFeature -name Web-Server -IncludeManagementTools
