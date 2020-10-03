@@ -1,5 +1,10 @@
 # Contributing
 
+## What to contribute?
+* Add new labs guide
+* Improve exist lab
+* Improve readme or other docs
+
 ## Lab folder name format
 
 `[lab_code]_lab-name`
