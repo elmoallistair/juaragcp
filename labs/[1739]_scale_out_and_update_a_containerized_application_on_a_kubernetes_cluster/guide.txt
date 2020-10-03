@@ -1,5 +1,5 @@
-# Configure Secure RDP using a Windows Bastion Host
-# https://www.qwiklabs.com/focuses/1737?parent=catalog
+# Scale Out and Update a Containerized Application on a Kubernetes Cluster
+# https://www.qwiklabs.com/focuses/1739?parent=catalog
 
 Task 1 : Check that there is a tagged image in gcr.io for echo-app:v2
 - mkdir echo-web && cd echo-web
