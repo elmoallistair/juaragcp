@@ -23,5 +23,6 @@ Welcome to the season 4 of #JuaraGCP. In this season you get an opportunity to s
 * [#MajulahGCP](https://goo.gle/MajulahGCP) (Singapore) 
 * [#GCPBoleh](https://goo.gle/GCPBoleh) (Malaysia) 
 * [#CloudSeekho](https://events.withgoogle.com/cloudseekho/) (Pakistan) 
-* [#GoogleCloudReady](https://events.withgoogle.com/googlecloudready-facilitator-program/) (India) 
+* [#GoogleCloudReady](https://events.withgoogle.com/googlecloudready-facilitator-program/) (India)
+* [#JuaraGCP](https://developers-id.googleblog.com/) (Indonesia)
 * Add your country here ...
