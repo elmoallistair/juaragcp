@@ -17,6 +17,7 @@ Welcome to the season 4 of #JuaraGCP. In this season you get an opportunity to s
 * Hands-on training with [Qwiklabs](https://www.qwiklabs.com/)
 * Google Cloud Platform channel on [YouTube](https://www.youtube.com/user/googlecloudplatform)
 * [Google Cloud](https://cloud.google.com/blog/) and [Qwiklabs](http://blog.qwiklabs.com/tag/google-cloud-platform/) blogs
+* [GCP Sketchnotes](https://thecloudgirl.dev/) by [priyankavergadia](https://github.com/priyankavergadia)
 
 
 ## See also our neighbours program 
