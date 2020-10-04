@@ -28,7 +28,7 @@
 
 # Task 4: Check that wp-config.php points to the Cloud SQL instance
   - Go to SQL -> Copy the Public IP Address from lab SQL instance
-  - Go to SSH Shell
+  - Go to VM Instances click SSH Shell at "blog"
     - run cd /var/www/html/wordpress/
     - run sudo nano wp-config.php
     - Change localhost string on DB_HOST with Public IP Address of SQL Instance that has copied before
