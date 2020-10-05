@@ -1,0 +1,128 @@
+Open Cloud Shell and run these commands.
+
+
+========== Task 0 =========
+
+gsutil -m cp gs://cloud-training/gsp335/* .
+
+
+========== Task 1 =========
+
+gcloud container clusters create demo1  --machine-type n1-standard-4 --num-nodes 2 --zone us-central1-c --enable-network-policy
+gcloud container clusters get-credentials demo1 --zone us-central1-c
+
+
+========== Task 2 =========
+
+gcloud sql instances create wordpress --region=us-central1
+gcloud sql databases create wordpress --instance wordpress
+gcloud sql users create dbpress --instance=wordpress --host=% --password='P@ssword!'
+gcloud sql users create wordpress1 --instance=wordpress --host=% --password='P@ssword!'
+
+gcloud iam service-accounts create sa-wordpress --display-name sa-wordpress
+
+gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --role roles/cloudsql.client --member serviceAccount:sa-wordpress@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+
+gcloud iam service-accounts keys create key.json --iam-account sa-wordpress@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+
+kubectl create secret generic cloudsql-instance-credentials     --from-file key.json
+kubectl create secret generic cloudsql-db-credentials \
+   --from-literal username=wordpress \
+   --from-literal password='P@ssword!'
+
+kubectl apply -f volume.yaml
+
+sed -i s/INSTANCE_CONNECTION_NAME/${GOOGLE_CLOUD_PROJECT}:us-central1:wordpress/g wordpress.yaml
+kubectl apply -f wordpress.yaml
+
+
+========== Task 3 =========
+
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
+helm install nginx-ingress stable/nginx-ingress
+
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.16.0/cert-manager.yaml
+
+kubectl get svc
+
+# Check the service nginx-ingress-controller as an external IP address before continuing to the next step.
+
+sed -i s/LAB_EMAIL_ADDRESS/sa-wordpress@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com/g issuer.yaml
+kubectl apply -f issuer.yaml
+
+# If you face any internal error, execute the command again
+
+. add_ip.sh
+
+HOST_NAME=$(echo $USER | tr -d '_').labdns.xyz
+sed -i s/HOST_NAME/${HOST_NAME}/g ingress.yaml
+kubectl apply -f ingress.yaml
+
+
+========== Task 4 =========
+
+kubectl apply -f network-policy.yaml
+
+nano network-policy.yaml
+
+# Add the following code at the last 
+
+# start here
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+ name: allow-nginx-access-to-internet
+spec:
+ podSelector:
+   matchLabels:
+     app: nginx-ingress
+ policyTypes:
+ - Ingress
+ ingress:
+ - {}
+# end here
+
+# The file should look like Screenshot1.png
+# Save file by CTRL+X then Y enter.
+
+kubectl apply -f network-policy.yaml
+
+
+========== Task 5 =========
+
+gcloud services enable \
+   container.googleapis.com \
+   containeranalysis.googleapis.com \
+   binaryauthorization.googleapis.com
+
+gcloud container clusters update demo1 --enable-binauthz --zone us-central1-c
+
+gcloud container binauthz policy export > bin-auth-policy.yaml
+
+nano bin-auth-policy.yaml
+
+# Add the four values and change
+- namePattern: docker.io/library/wordpress:latest
+- namePattern: us.gcr.io/k8s-artifacts-prod/ingress-nginx/*
+- namePattern: gcr.io/cloudsql-docker/*
+- namePattern: quay.io/jetstack/*
+defaultAdmissionRule:
+ enforcementMode: ENFORCED_BLOCK_AND_AUDIT_LOG
+ evaluationMode: ALWAYS_DENY
+globalPolicyEvaluationMode: ENABLE
+
+# End
+
+# The file should look like Screenshot2.png
+# Save file by CTRL+X then Y enter.
+
+gcloud container binauthz policy import bin-auth-policy.yaml
+
+
+========== Task 6 =========
+
+kubectl apply -f psp-restrictive.yaml
+kubectl apply -f psp-role.yaml
+kubectl apply -f psp-use.yaml

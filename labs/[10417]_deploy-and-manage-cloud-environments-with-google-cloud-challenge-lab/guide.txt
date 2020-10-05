@@ -1,0 +1,74 @@
+# Deploy and Manage Cloud Environments with Google Cloud: Challenge Lab
+# https://www.qwiklabs.com/focuses/10417?parent=catalog
+
+# Task 1: Create the production environment
+# 1.1 Create the kraken-prod-vpc
+- Go to Compute Engine > VM instances
+- SSH to kraken-jumphost
+- *in ssh window*
+cd /work/dm
+nano prod-network.yaml # Replace SET_REGION to us-east1
+gcloud deployment-manager deployments create prod-network --config=prod-network.yaml
+    
+# 1.2 Create a Kubernetes cluster in the new network
+gcloud config set compute/zone us-east1-b
+gcloud container clusters create kraken-prod --num-nodes 2 --network kraken-prod-vpc --subnetwork kraken-prod-subnet
+
+# 1.3 Create the frontend and backend deployments and services
+cd /work/k8s
+for F in $(ls *.yaml); do kubectl create -f $F; done
+kubectl get services
+
+
+# Task 2: Setup the Admin instance
+# 2.1 Create a VM instance
+- *in ssh window*
+gcloud config set compute/zone us-east1-b
+gcloud compute instances create kraken-admin --network-interface="subnet=kraken-mgmt-subnet" --network-interface="subnet=kraken-prod-subnet"
+
+# 2.2 Create a Monitoring workspace
+- Go to Navigation menu > Monitoring > Alerting (left pane) > Create Policy
+- In What do you want to track? Click Add Condition
+    - In Target section
+            - Resource Type: VM Instance
+            - Metric: CPU Utilization, compute.googleapis.com/instance/cpu/utilization
+            - Filter: instance_name='kraken-admin'
+    - In Configuration section
+        - Threshold: 50
+- In What are the steps to fix the issue?, Alert name: kraken-admin
+
+
+# Task 3: Verify the Spinnaker deployment
+# 3.1 Connect the Spinnaker console
+- Open Cloud Shell, run:
+gcloud config set compute/zone us-east1-b
+gcloud container clusters get-credentials spinnaker-tutorial
+DECK_POD=$(kubectl get pods --namespace default -l "cluster=spin-deck" -o jsonpath="{.items[0].metadata.name}")
+kubectl port-forward --namespace default $DECK_POD 8080:9000 >> /dev/null &
+- In cloud shell, click Web Preview > Preview on port 8080
+- *in spinnaker*
+    - Go to Application > Click sample > Go to Pipelines
+    - Start manual Execution
+        - Pipeline: Deploy (ignore warning)
+    - In PUBSUB pipeline, click at orange tab > Deploy to production? Click Continue
+
+# 3.2 Clone your source code repository
+- Open Cloud shell
+- *in cloud shell*
+gcloud config set compute/zone us-east1-b
+gcloud source repos clone sample-app
+cd sample-app
+touch a
+git config --global user.email "$(gcloud config get-value account)"
+git config --global user.name "Student"
+git commit -a -m "change"
+git tag v1.0.1
+git push --tags
+
+# 3.3 Triggering your pipeline from code changes
+- Back to spinnaker pipeline
+- In Manual START pipeline, click at orange tab > Deploy to production? Click Continue
+- Start manual Execution
+    - Pipeline: Deploy (ignore warning)
+- In New Manual START pipeline, click at orange tab > Deploy to production? Click Continue
+- After all pipeline Status: SUCCEEDED, check your progress

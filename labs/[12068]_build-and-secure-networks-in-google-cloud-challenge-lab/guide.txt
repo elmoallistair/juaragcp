@@ -1,0 +1,47 @@
+# Build and Secure Networks in Google Cloud: Challenge Lab 
+# https://www.qwiklabs.com/focuses/12068?parent=catalog
+
+# Task 1: Remove the overly permissive rules
+    - Go to VPC Network > Firewall > Delete open-access rule (Checks its box and Click Delete)
+
+# Task 2: Start the bastion host instance
+    - Go to Compute Engine > VM instance
+        - You will see bastion isntance with stopped condition, start it (Checks its box and Click Start/Resume)
+
+# Task 3: Create a firewall rule that allows SSH (tcp/22) from the IAP service and add network tag on bastion
+    - In VM instances, Click bastion instance
+        - Click Edit > Add bastion to the Network tags
+        - SAVE
+    - Back to Firewall rule page > Create firewall rule with configuration:
+        - Name: allow-ssh-from-iap
+        - Network: acme-vpc
+        - Target tags: bastion
+        - Source IP ranges: 35.235.240.0/20
+        - Protocols and ports: Check TCP and input 22 (to allow SSH)
+
+# Task 4: Create a firewall rule that allows traffic on HTTP (tcp/80) to any address and add network tag on juice-shop
+    - In VM instances, Click juice-shop instance
+        - Click Edit > Add juice-shop to the Network tags
+        - SAVE
+    - In Firewall rule > Create second firewall rule with configuration:
+        - Name: allow-http-ingress
+        - Network: acme-vpc
+        - Target tags: juice-shop
+        - Source IP ranges: 0.0.0.0/0
+        - Protocols and ports: Check TCP and input 80 (to allow HTTP)
+
+# Task 5: Create a firewall rule that allows traffic on SSH (tcp/22) from acme-mgmt-subnet network address and add network tag on juice-shop
+    - In Firewall rule > Create third firewall rule with configuration:
+        - Name: allow-ssh-from-mgmt-subnet
+        - Network: acme-vpc
+        - Target tags: bastion and juice-shop
+        - Source IP ranges: <IP address range of your acme-mgmt-subnet>
+            # Note: go to VPC network and have a look to IP address ranges of acme-mgmt-subnet
+        - Protocols and ports: Select TCP and enter 22 (to allow SSH)
+
+# Task 6: SSH to bastion host via IAP and juice-shop via bastion 
+    - Go to Compute Engine > VM instances 
+    - Copy juice-shop Internal IP
+    - SSH on bastion instance
+        - *in ssh window
+            - run: ssh <juice-shop Internal IP>
