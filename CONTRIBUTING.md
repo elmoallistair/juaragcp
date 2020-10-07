@@ -1,9 +1,11 @@
 # Contributing
 
-## What to contribute?
+## What you can contribute?
 * Add new labs guide
-* Improve exist lab
-* Improve readme or other docs
+* Improve/Fix existing lab
+* Add another lab resources
+* Add another learning resources (README.md)
+* Add another similiar programs (README.md)
 
 ## Lab folder name format
 
