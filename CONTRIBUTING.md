@@ -1,5 +1,12 @@
 # Contributing
 
+## What you can contribute?
+* Add new labs guide
+* Improve/Fix existing lab
+* Add another lab resources
+* Add another learning resources (README.md)
+* Add another similiar programs (README.md)
+
 ## Lab folder name format
 
 `[lab_code]_lab-name`
