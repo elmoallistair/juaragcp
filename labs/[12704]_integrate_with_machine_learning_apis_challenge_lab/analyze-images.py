@@ -55,14 +55,14 @@ for file in files:
         
         # TBD: Create a Vision API image object called image_object 
         # Ref: https://googleapis.dev/python/vision/latest/gapic/v1/types.html#google.cloud.vision_v1.types.Image
-        from google.cloud import vision
+        from google.cloud import vision_v1
         import io
         client = vision.ImageAnnotatorClient()
 
 
         # TBD: Detect text in the image and save the response data into an object called response
         # Ref: https://googleapis.dev/python/vision/latest/gapic/v1/api.html#google.cloud.vision_v1.ImageAnnotatorClient.document_text_detection
-        image = vision.types.Image(content=file_content)
+        image = vision_v1.types.Image(content=file_content)
         response = client.text_detection(image=image)
     
         # Save the text content found by the vision API into a variable called text_data
