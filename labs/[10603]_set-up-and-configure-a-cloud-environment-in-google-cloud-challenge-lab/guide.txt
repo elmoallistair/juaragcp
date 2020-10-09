@@ -92,7 +92,7 @@
         - run: gsutil cp -r gs://cloud-training/gsp321/wp-k8s ~/
         - run: cd ~/wp-k8s
         - run: nano wp-env.yaml
-            - Replace <username_goes_here> to wp-user 
+            - Replace <username_goes_here> to wp_user 
             - Replace <password_goes_here> to stormwind_rules
             - Save
         - Connect to Kubernetes cluster > Run in Cloud Shell
