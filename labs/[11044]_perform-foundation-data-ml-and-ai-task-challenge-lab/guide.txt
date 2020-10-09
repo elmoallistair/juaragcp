@@ -5,11 +5,11 @@
     1.1 Create bigquery dataset
         - Navigation menu > BigQuery > Click your project >
         - Click CREATE DATASET (Dataset ID: lab, leave all default) > Create dataset
-        - Click lab dataset, click CREATE TABLE
         - *in cloud shell*
             - run: gsutil cp gs://cloud-training/gsp323/lab.csv .
             - run: gsutil cp gs://cloud-training/gsp323/lab.schema .
-            - run: cat lab.schema # copy the value within []
+            - run: cat lab.schema # copy the value within [] under "BigQuery Schema":
+        - Back to BigQuery page, click lab dataset, click CREATE TABLE
         - *in create table dialog*
             - Create table from: Google Cloud Storage
             - Select file from GCS bucket: gs://cloud-training/gsp323/lab.csv
@@ -33,6 +33,7 @@
                 - Temporary BigQuery directory 	gs://YOUR_PROJECT/bigquery_temp
                 - Temporary location 	        gs://YOUR_PROJECT/temp
         - RUN JOB
+          (Continue to the Task 2 while waiting the Run Job done)
 
 # Task 2: Run a simple Dataproc job
     2.1 Create Dataproc Cluster
@@ -40,8 +41,8 @@
         - *in create cluster section*
             - region: us-central-1
             - Create
+        - Continue to Task 3 while waiting the Cluster creation completed
         - Click your cluster name > VM INSTANCES > Click SSH
-        - Go Complete Task 3
             - run: hdfs dfs -cp gs://cloud-training/gsp323/data.txt /data.txt
             - Close SSH window
         - SUBMIT JOB
