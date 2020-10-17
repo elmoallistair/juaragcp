@@ -5,7 +5,7 @@
 # 1. Create a bucket
 - Navigation > Storage > Bucket > Create Bucket with name of your Project ID
 
-# 2. Stary JupyterLab Notebook
+# 2. Start JupyterLab Notebook
 - Navigation > AI Platform > New Instance > Choose latest version of Tensorflow without GPU > Create
 - Open JupyterLab (wait a minute)
     - *in jupyterlab*
