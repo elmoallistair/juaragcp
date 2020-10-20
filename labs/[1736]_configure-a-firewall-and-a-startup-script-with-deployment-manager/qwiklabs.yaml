@@ -1,1 +1,8 @@
-# delete firewall rule (keep line 24 - 34)
+imports:
+- path: qwiklabs,jinja
+
+resources:
+- name: qwiklabs
+  type: qwiklabs.jinja
+  properties:
+    zone: us-central1-a
