@@ -194,6 +194,7 @@ WITH france_cases AS (
     GROUP BY date
     ORDER BY date
 ), 
+	
 summary AS (
     SELECT
         total_cases AS first_day_cases,
@@ -208,6 +209,9 @@ SELECT
     last_day_cases, 
     days_diff, 
     POWER(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
+    -- Note: if you received null in column last_day_cases, days_diff and cdgr
+    -- Then try use POW() instead of POWER()
+    -- POW(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
 FROM summary
 
 -- Expected
