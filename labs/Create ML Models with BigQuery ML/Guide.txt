@@ -1,8 +1,8 @@
 ## Task 1: Create a dataset to store your machine learning models  
 ### dataset name is up to you
 
-cloudshell: bq mk austin 
-or
+cloudshell: bq mk austin  
+or  
 create the dataset from bigquery console
 
 
@@ -11,17 +11,17 @@ create the dataset from bigquery console
 Write the below query in BigQuery console:
 ### model name is up to you
 
-CREATE OR REPLACE MODEL austin.aust_model_1
-OPTIONS(input_label_cols=['duration_minutes'], model_type='linear_reg')
-AS SELECT duration_minutes, location, start_station_name,
-CAST(EXTRACT(dayofweek FROM start_time) AS STRING) as dayofweek,
-CAST(EXTRACT(hour FROM start_time) AS STRING) AS hourofday,
-FROM
-`bigquery-public-data.austin_bikeshare.bikeshare_trips` AS trips
-JOIN
-`bigquery-public-data.austin_bikeshare.bikeshare_stations` AS stations
-ON trips.start_station_id = stations.station_id
-WHERE
+CREATE OR REPLACE MODEL austin.aust_model_1  
+OPTIONS(input_label_cols=['duration_minutes'], model_type='linear_reg')  
+AS SELECT duration_minutes, location, start_station_name,  
+CAST(EXTRACT(dayofweek FROM start_time) AS STRING) as dayofweek,  
+CAST(EXTRACT(hour FROM start_time) AS STRING) AS hourofday,  
+FROM  
+`bigquery-public-data.austin_bikeshare.bikeshare_trips` AS trips  
+JOIN  
+`bigquery-public-data.austin_bikeshare.bikeshare_stations` AS stations  
+ON trips.start_station_id = stations.station_id  
+WHERE  
 EXTRACT(year from start_time) = 2018
 
 
