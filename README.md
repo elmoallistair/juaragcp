@@ -1,14 +1,3 @@
-# Hi Developers in Indonesia.. -in the world of course
-![banner](https://github.com/elmoallistair/qwiklabs/blob/master/juaragcp.png)
-
-Welcome to the season 4 of #JuaraGCP. In this season you get an opportunity to self study Google Cloud Platform **Data, AI, ML, Infrastructure and Application Development** related tools and technologies starting with one month free access to Qwiklabs & receive a cool swag pack depending on the number of quests you complete. Sounds interesting? Follow the steps below.
-
-* Register [#JuaraGCP Season 4](https://events.withgoogle.com/juaragcp-season-4/) (**Deadline : 11th October 2020**)
-* First time using Qwiklabs? [Follow this video](https://www.youtube.com/watch?v=cyp7soKLOYI)
-* Have a question? join our [Telegram](https://t.me/JuaraGCP) community
-* Follow [@googledevsid](https://twitter.com/googledevsid?) for all updates! 
-* Feel free to [contribute](https://github.com/elmoallistair/qwiklabs/blob/master/CONTRIBUTING.md)!
-
 ## Learning GCP Resources
 
 * Try GCP for [free](http://bit.ly/2HuW2ed) 
@@ -20,11 +9,3 @@ Welcome to the season 4 of #JuaraGCP. In this season you get an opportunity to s
 * [GCP Sketchnotes](https://thecloudgirl.dev/) by [priyankavergadia](https://github.com/priyankavergadia)
 * Curated List of [GCP educational resources](https://github.com/GoogleCloudPlatform/edu-resources/)
 * [GCP CheatSheet](https://github.com/dennyzhang/cheatsheet-gcp-A4) by [dennyzhang](https://github.com/dennyzhang)
-
-
-## See also our neighbours program 
-* [#MajulahGCP](https://goo.gle/MajulahGCP) (Singapore) 
-* [#GCPBoleh](https://goo.gle/GCPBoleh) (Malaysia) 
-* [#CloudSeekho](https://events.withgoogle.com/cloudseekho/) (Pakistan) 
-* [#GoogleCloudReady](https://events.withgoogle.com/googlecloudready-facilitator-program/) (India) 
-* Add your country here ...
