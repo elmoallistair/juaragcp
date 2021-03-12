@@ -1,0 +1,40 @@
+# 1. Check that Cloud Monitoring has been enabled
+Open Monitoring from console
+
+# 2. Check that the video queue length custom metric has been created
+Check Monitoring > Dashboard > Media_Dashboard
+Open VM Instances
+- Stop video-queue-monitor instances
+- Edit video-queue-monitor instace:
+  - Go to Custom metadata
+    - startup-script: 
+      - replace MY_PROJECT_ID value with your PROJECT ID
+      - replace MY_GCE_INSTANCE_ID value with your your video-queue-monitor Instance id (find it in top)
+      - replace MY_GCE_INSTANCE_ZONE value with us-east1-b
+    - SAVE
+- Start video-queue-monitor instance
+
+# 3. Check that a custom log based metric for large video upload rate has been created
+Go to log explorer
+- fill textPayload=~"file_format\: ([4,8]K).*" in query box and run it
+- Click Action > Create Metric with name "large_video_upload_rate", Click Create Metric
+
+# 4. Check that custom metrics for the video service have been added to the media dashboard
+Go to Monitoring > Dashboard
+  - Click Media_Dashboard
+  - Add Chart
+    - Resource Type: VM Instance
+    - Metrics: OpenCensus/my.videoservice.org/measure/input_queue_size (uncheck Only show active)
+    - Filter: instance_id, click your video-queue-monitor instance id (from step 2) then Apply
+    - SAVE
+  - Add Chart
+    - Resource: VM Instance
+    - Metric: logging/user/large_video_upload_rate
+
+# 5. Check that an alert has been created for large video uploads 
+Go to Monitoring > Alert
+  - Create Policy
+  	- Metric: logging/user/large_video_upload_rate 
+  	- Treshold: 3
+  	- For: 1 minute
+  - Name your alert with "large video uploads" then Save

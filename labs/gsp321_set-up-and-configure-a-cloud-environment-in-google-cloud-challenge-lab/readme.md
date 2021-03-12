@@ -16,12 +16,12 @@ You are expected to have the skills and knowledge for these tasks so don’t exp
 
 You need to complete the following tasks:
 
-    * Create a development VPC with three subnets manually
-    * Create a production VPC with three subnets using a provided Deployment Manager configuration
-    * Create a bastion that is connected to both VPCs
-    * Create a development Cloud SQL Instance and connect and prepare the WordPress environment
-    * Create a Kubernetes cluster in the development VPC for WordPress
-    * Prepare the Kubernetes cluster for the WordPress environment
-    * Create a WordPress deployment using the supplied configuration
-    * Enable monitoring of the cluster via stackdriver
-    * Provide access for an additional engineer
+* Create a development VPC with three subnets manually
+* Create a production VPC with three subnets using a provided Deployment Manager configuration
+* Create a bastion that is connected to both VPCs
+* Create a development Cloud SQL Instance and connect and prepare the WordPress environment
+* Create a Kubernetes cluster in the development VPC for WordPress
+* Prepare the Kubernetes cluster for the WordPress environment
+* Create a WordPress deployment using the supplied configuration
+* Enable monitoring of the cluster via stackdriver
+* Provide access for an additional engineer

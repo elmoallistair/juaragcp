@@ -1,9 +1,7 @@
 # Implement DevOps in Google Cloud: Challenge Lab 
 # https://www.qwiklabs.com/focuses/13287?parent=catalog
 
-# NOTE: im confusing with this lab, if you still failed (in task 2 and/or 4) try look at other people reference
-
-- Open Cloud shell, run: 
+# Open Cloud shell, run: 
 gcloud config set compute/zone us-east1-b
 git clone https://source.developers.google.com/p/$DEVSHELL_PROJECT_ID/r/sample-app
 gcloud container clusters get-credentials jenkins-cd
@@ -19,7 +17,7 @@ printf $(kubectl get secret cd-jenkins -o jsonpath="{.data.jenkins-admin-passwor
     - username: admin
     - password: see at your cloud shell output
 
-- Back to Cloud shell, run:
+# Back to Cloud shell, run:
 cd sample-app
 kubectl create ns production
 kubectl apply -f k8s/production -n production
@@ -36,66 +34,64 @@ git add .
 git commit -m "initial commit"
 git push origin master
 
-- Back to Jenkins Dashboard > Manage Jenkins (left pane) > manage Credentials
-    - Look at Stores scoped to Jenkins, click Jenkins
-    - Click Global credentials (unrestricted)
-    - Click Add Credentials
-        - Kind: Google Service Account from metadata
-        - Project Name: <your_project_id>
-        - Click OK
+# Back to Jenkins Dashboard > Manage Jenkins (left pane) > manage Credentials
+#     - Look at "Stores scoped", click Jenkins
+#     - Click Global credentials (unrestricted)
+#     - Click Add Credentials
+#         - Kind: Google Service Account from metadata
+#         - Project Name: <your_project_id>
+#         - Click OK
+#
+# Back to Jenkins Dashboard > New Item (left pane)
+#    Enter an item name: sample-app
+#    Click Multibranch Pipeline
+#    OK
+#    *in sample-app config*
+#        - Branch Sources: Git
+#            - Project Repository: https://source.developers.google.com/p/[PROJECT_ID]/r/sample-app
+#            - Credentials: qwiklabs service account
+#        - Scan Multibranch Pipeline Triggers, check "Periodically if not otherwise run"
+#            - Interval: 1 minute
+#        - SAVE # building will take long time
+#        # Note: Repeat if you see error msg while scanning Multibranch Pipeline Log
+#        - CHECK YOUR FIRST CHECKPOINT
+#
 
-- Back to Jenkins Dashboard > New Item (left pane)
-    - Enter an item name: sample-app
-    - Click Multibranch Pipeline
-    - OK
-    - *in sample-app config*
-        - Branch Sources: Git
-            - Project Repository: https://source.developers.google.com/p/[PROJECT_ID]/r/sample-app
-            - Credentials: qwiklabs service account
-        - Scan Multibranch Pipeline Triggers, check Periodically if not otherwise run
-            - Interval: 1 minute
-        - SAVE # building will take long time
-        # Note: Repeat if you see error msg while scanning Multibranch Pipeline Log
-        - CHECK YOUR FIRST CHECKPOINT
-
-- Back to Cloud shell
+# Back to Cloud Shell
 git checkout -b new-feature
-nano main.go
+edit main.go
 # change the version number to "2.0.0". 
 # example: version string = "2.0.0" (in line 46)
-
-run: nano html.go
+edit html.go
 # change both lines that contains the word blue to orange
 # example: <div class="card orange"> (in line 37 and 81)
 
-back to cloud shell, run: 
+# Back to Cloud Shell
 git add Jenkinsfile html.go main.go
 git commit -m "Version 2.0.0"
 git push origin new-feature
-# Check your Jenkins Dashboard
+# Check your sample-app branches from jenkins dashboard (new-feature branch)
 
-back to cloud shell, run: 
+# Back to Cloud Shell 
 curl http://localhost:8001/api/v1/namespaces/new-feature/services/gceme-frontend:80/proxy/version
 kubectl get service gceme-frontend -n production  
 git checkout -b canary
 git push origin canary
-export FRONTEND_SERVICE_IP=$(kubectl get -o \
-jsonpath="{.status.loadBalancer.ingress[0].ip}" --namespace=production services gceme-frontend)
 git checkout master
 git push origin master
-# Check your Jenkins Dashboard
+# Check your sample-app branches from jenkins dashboard (canary branch)
 
-back to cloud shell, run: 
+# Back to Cloud Shell 
 export FRONTEND_SERVICE_IP=$(kubectl get -o \
 jsonpath="{.status.loadBalancer.ingress[0].ip}" --namespace=production services gceme-frontend)
 while true; do curl http://$FRONTEND_SERVICE_IP/version; sleep 1; done
-# NOTE: after the you see output 2.0.0 CHECK YOUR #2 PROGRESS (CHECK MAY FAIL OR/AND NEED DELAY, DUNNO WHY)
+# after the you see output 2.0.0, run:
 kubectl get service gceme-frontend -n production
-# CHECK YOUR #3 CHECKPOINT
-# CHECK YOUR #4 CHECKPOINT (CHECK MAY FAIL OR/AND NEED LONG DELAY)
+# CHECK YOUR #2 #3 AND #4 CHECKPOINT (may be a delay)
 
-# Note if task 4 not yet marked, try run (may take a long delay):
+###############################################################################################
+
+# Note if task 4 not yet marked, try run:
 git merge canary
 git push origin master
-export FRONTEND_SERVICE_IP=$(kubectl get -o \
-jsonpath="{.status.loadBalancer.ingress[0].ip}" --namespace=production services gceme-frontend)
+# may take a long delay before check progress

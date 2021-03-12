@@ -1,7 +1,7 @@
 # Set up and Configure a Cloud Environment in Google Cloud: Challenge Lab 
 # https://www.qwiklabs.com/focuses/10603?parent=catalog
 
-# NOTE: ALL RESOURCES MUST BE CREATED IN REGION us-east1-b
+# NOTE: Create all resources in the us-east1 region and us-east1-b zone, unless otherwise directed.
 
 # Task 1: Create development VPC manually
     - Go to Navigation menu > VPC Network > Create VPC Network
