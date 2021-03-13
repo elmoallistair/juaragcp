@@ -23,7 +23,7 @@ gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/rest-api:0.2
 gcloud beta run deploy netflix-dataset-service --image gcr.io/$GOOGLE_CLOUD_PROJECT/rest-api:0.2 --allow-unauthenticated
 # go to cloud run and click netflix-dataset-service then copy the url
 SERVICE_URL=<copy url from your netflix-dataset-service>
-curl -x GET $SERVICE_URL/2019
+curl -X GET $SERVICE_URL/2019
 
 # 5. Cloud Build Frontend Staging
 cd ~/pet-theory/lab06/firebase-frontend/public
