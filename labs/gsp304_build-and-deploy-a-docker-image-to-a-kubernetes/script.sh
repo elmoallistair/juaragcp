@@ -6,6 +6,7 @@ mkdir echo-web && cd echo-web
 gsutil cp -r gs://$DEVSHELL_PROJECT_ID/echo-web.tar.gz .
 tar -xzf echo-web.tar.gz
 rm echo-web.tar.gz
+cd echo-web
 docker build -t echo-app:v1 .
 docker tag echo-app:v1 gcr.io/$DEVSHELL_PROJECT_ID/echo-app:v1
 docker push gcr.io/$DEVSHELL_PROJECT_ID/echo-app:v1
