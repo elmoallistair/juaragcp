@@ -70,3 +70,10 @@ gcloud compute forwarding-rules create http-content-rule \
     --global \
     --target-http-proxy http-lb-proxy \
     --ports 80
+    
+## 3.9 Testing traffic sent to your instances
+## Network services > Load balancing
+## Click web-map
+## Click the name of the backend
+## Open new tab
+## Paste http://IP_ADDRESS/ in the URL bar (replace IP_ADDRESS with the load balancer's IP address)
