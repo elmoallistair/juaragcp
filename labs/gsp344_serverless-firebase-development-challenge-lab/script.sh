@@ -27,7 +27,7 @@ curl -X GET $SERVICE_URL/2019
 
 # 5. Cloud Build Frontend Staging
 cd ~/pet-theory/lab06/firebase-frontend/public
-nano app.js # comment line 3 and uncomment line 4, insert your netflix-dataset-service url
+nano app.js # comment line 4 and uncomment line 5, insert your netflix-dataset-service url
 npm install
 cd ~/pet-theory/lab06/firebase-frontend
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-staging:0.1
