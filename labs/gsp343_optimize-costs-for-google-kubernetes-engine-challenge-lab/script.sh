@@ -43,5 +43,3 @@ kubectl get hpa --namespace dev
 
 # Task 4. Autoscale from Estimated Traffic
 gcloud beta container clusters update onlineboutique-cluster --enable-autoscaling --min-nodes 1 --max-nodes 6 --zone $ZONE
-
-https://mayankchourasia2.medium.com/optimize-costs-for-google-kubernetes-engine-challenge-lab-d336225922fb
