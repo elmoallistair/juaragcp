@@ -2,10 +2,9 @@
 
 ## What you can contribute?
 * Add new labs guide
-* Improve/Fix existing lab
+* Improve/Fix/Update existing lab
 * Add another lab resources
 * Add another learning resources (README.md)
-* Add another similiar programs (README.md)
 
 ## Lab folder name format
 
@@ -13,21 +12,20 @@
 
 example:
 
-`[581]_ai-platform-qwik-start`
+`gsp301_deploy-a-compute-instance-with-a-remote-startup-script`
 
-> Place the folder in `qwiklabs/labs/`folder in this repo
-
-> You can get the lab code with look at lab url,\
-> example: `https://www.qwiklabs.com/focuses/12704?parent=catalog` \
-> 12704 is the lab code
+Place the folder in `qwiklabs/labs/`folder in this repo
 
 ## Lab folder contents
 
 * `readme.md` with: 
   * Lab name with Heading1 (`#`) style linked to qwiklabs lab url
-  * Lab overview (have a look in qwiklabs lab)
+  * Lab overview
   * Challenge scenario (if challenge lab)
 * `guide.txt` or `script.sh` that contains step-by-step how to complete lab
 * Other resources like notebook, script or file (Optional)
 
-> For example, have a look at this [folder](https://github.com/elmoallistair/qwiklabs/tree/master/labs/%5B11881%5D_building-interactice-apps-with-google-assistant-challenge-lab)
+For example, have a look at this [folder](https://github.com/elmoallistair/qwiklabs/tree/master/labs/gsp325_building-interactice-apps-with-google-assistant-challenge-lab)
+
+
+**Note**: This repo contains only challenge labs

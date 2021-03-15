@@ -1,0 +1,16 @@
+# Explore Machine Learning Models with Explainable AI: Challenge Lab 
+# https://www.qwiklabs.com/focuses/12011?parent=catalog
+
+# Steps:
+# 1. Create a bucket
+- Navigation > Storage > Bucket > Create Bucket with name of your Project ID
+
+# 2. Start JupyterLab Notebook
+- Navigation > AI Platform > New Instance > Choose latest version of Tensorflow (2.x) without GPU > Create
+- Open JupyterLab (wait a minute)
+    - *in jupyterlab*
+    - Click the terminal
+        - run: git clone https://github.com/GoogleCloudPlatform/training-data-analyst
+        - Go to training-data-analyst/quests/dei.    
+        - Open notebook what-if-tool-challenge.ipynb
+        - Run and modify some cells (have a look at notebook in this repo folder for reference)

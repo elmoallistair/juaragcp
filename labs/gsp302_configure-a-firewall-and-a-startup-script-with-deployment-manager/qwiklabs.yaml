@@ -1,0 +1,8 @@
+imports:
+- path: qwiklabs,jinja
+
+resources:
+- name: qwiklabs
+  type: qwiklabs.jinja
+  properties:
+    zone: us-central1-a
