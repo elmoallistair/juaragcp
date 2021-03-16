@@ -1,5 +1,5 @@
 imports:
-- path: qwiklabs,jinja
+- path: qwiklabs.jinja
 
 resources:
 - name: qwiklabs
