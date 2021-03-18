@@ -10,9 +10,11 @@ kubectl create namespace prod
 git clone https://github.com/GoogleCloudPlatform/microservices-demo.git &&
 cd microservices-demo && kubectl apply -f ./release/kubernetes-manifests.yaml --namespace dev
 
+- Click refresh till status of all module is Ok except loadgenerator
+- Press Ctrl+c to exit
 kubectl get svc -w --namespace dev
 
--In the GCP Console go to Navigation Menu >Kubernets Engine> Service and Ingress >click endpoints frontend-external 
+- In the GCP Console go to Navigation Menu >Kubernets Engine> Service and Ingress >click endpoints frontend-external 
 - or In the Cloud Shell Copy and Paste the code
 kubectl get svc -w --namespace dev
 
@@ -33,8 +35,13 @@ kubectl create poddisruptionbudget onlineboutique-frontend-pdb --selector app=fr
 - Edit your frontend deployment and change its image to the updated one.
 KUBE_EDITOR="nano" kubectl edit deployment/frontend --namespace dev
 
-- Find the image under spec replace.
+- Change the following line:
+- Find the image under spec replace with:
 image: gcr.io/qwiklabs-resources/onlineboutique-frontend:v2.1
+- Find the imagePullPolicy under image replace with:
+imagePullPolicy: Always
+
+- Press ctrl+x, Y then enter to exit & save
 
 
 kubectl autoscale deployment frontend --cpu-percent=50 --min=1 --max=13 --namespace dev
