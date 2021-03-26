@@ -25,7 +25,7 @@ Place the folder in `qwiklabs/labs/`folder in this repo
 * `guide.txt` or `script.sh` that contains step-by-step how to complete lab
 * Other resources like notebook, script or file (Optional)
 
-For example, have a look at this [folder](https://github.com/elmoallistair/qwiklabs/tree/master/labs/gsp325_building-interactice-apps-with-google-assistant-challenge-lab)
+For example, have a look at this [folder](https://github.com/elmoallistair/qwiklabs/tree/master/labs/gsp325_building-interactive-apps-with-google-assistant-challenge-lab)
 
 
 **Note**: This repo contains only challenge labs
