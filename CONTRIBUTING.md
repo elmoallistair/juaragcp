@@ -1,6 +1,7 @@
 # Contributing
 
 ## What you can contribute?
+
 * Add new labs guide
 * Improve/Fix/Update existing lab
 * Add another lab resources
@@ -18,7 +19,7 @@ Place the folder in `qwiklabs/labs/`folder in this repo
 
 ## Lab folder contents
 
-* `readme.md` with: 
+* `readme.md` with:
   * Lab name with Heading1 (`#`) style linked to qwiklabs lab url
   * Lab overview
   * Challenge scenario (if challenge lab)
@@ -26,6 +27,5 @@ Place the folder in `qwiklabs/labs/`folder in this repo
 * Other resources like notebook, script or file (Optional)
 
 For example, have a look at this [folder](https://github.com/elmoallistair/qwiklabs/tree/master/labs/gsp325_building-interactive-apps-with-google-assistant-challenge-lab)
-
 
 **Note**: This repo contains only challenge labs
