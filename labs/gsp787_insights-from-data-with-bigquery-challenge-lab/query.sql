@@ -187,31 +187,28 @@ LIMIT 10
 -- The first case was reported on Jan 24, 2020.
 WITH france_cases AS (
     SELECT
-        date,
-        SUM(cumulative_confirmed) AS total_cases
-    FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-    WHERE country_name="France" AND date IN ('2020-01-24', '2020-05-10')
-    GROUP BY date
-    ORDER BY date
-), 
-	
-summary AS (
+      date,
+      SUM(cumulative_confirmed) AS total_cases
+    FROM
+      `bigquery-public-data.covid19_open_data.covid19_open_data`
+    WHERE
+      country_name="France"
+      AND date IN ('2020-01-24', '2020-05-10')
+    GROUP BY
+      date
+    ORDER BY
+      date)
+  , summary AS (
     SELECT
-        total_cases AS first_day_cases,
-        LEAD(total_cases) OVER(ORDER BY date) AS last_day_cases,
-        DATE_DIFF(LEAD(date) OVER(ORDER BY date),date, day) AS days_diff
-    FROM france_cases
+      total_cases AS first_day_cases,
+      LEAD(total_cases) OVER(ORDER BY date) AS last_day_cases,
+      DATE_DIFF(LEAD(date) OVER(ORDER BY date),date, day) AS days_diff
+    FROM
+      france_cases
     LIMIT 1
 )
 
-SELECT 
-    first_day_cases, 
-    last_day_cases, 
-    days_diff, 
-    POWER(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
-    -- Note: if you received null in column last_day_cases, days_diff and cdgr
-    -- Then try use POW() instead of POWER()
-    -- POW(last_day_cases/first_day_cases,1/days_diff)-1 as cdgr
+SELECT first_day_cases, last_day_cases, days_diff, POW((last_day_cases/first_day_cases),(1/days_diff))-1 as cdgr
 FROM summary
 
 -- Expected
