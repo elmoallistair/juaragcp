@@ -38,22 +38,27 @@ kubectl apply -f wordpress.yaml
 
 ========== Task 3 =========
 
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo add stable https://charts.helm.sh/stable
 helm repo update
-helm install nginx-ingress stable/nginx-ingress
-
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.16.0/cert-manager.yaml
-
-kubectl get svc
+helm install nginx-ingress stable/nginx-ingress --set rbac.create=true
 
 # Check the service nginx-ingress-controller as an external IP address before continuing to the next step.
 
-sed -i s/LAB_EMAIL_ADDRESS/sa-wordpress@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com/g issuer.yaml
-kubectl apply -f issuer.yaml
+kubectl get svc
 
 # If you face any internal error, execute the command again
 
 . add_ip.sh
+
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.2.0/cert-manager.yaml
+
+kubectl create clusterrolebinding cluster-admin-binding \
+--clusterrole=cluster-admin \
+--user=$(gcloud config get-value core/account)
+
+sed -i s/LAB_EMAIL_ADDRESS/sa-wordpress@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com/g issuer.yaml
+kubectl apply -f issuer.yaml
+
 
 HOST_NAME=$(echo $USER | tr -d '_').labdns.xyz
 sed -i s/HOST_NAME/${HOST_NAME}/g ingress.yaml
