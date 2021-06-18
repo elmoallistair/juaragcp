@@ -9,11 +9,11 @@
 cd /work/dm
 sed -i s/SET_REGION/us-east1/g prod-network.yaml
 gcloud deployment-manager deployments create prod-network --config=prod-network.yaml
-gcloud container clusters get-credentials kraken-prod 
 
 # 1.2 Create a Kubernetes cluster in the new network
 gcloud config set compute/zone us-east1-b
 gcloud container clusters create kraken-prod --num-nodes 2 --network kraken-prod-vpc --subnetwork kraken-prod-subnet
+gcloud container clusters get-credentials kraken-prod 
 
 # 1.3 Create the frontend and backend deployments and services
 cd /work/k8s
