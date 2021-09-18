@@ -66,9 +66,8 @@
         - Search column10 column
         - See detail page > click FAILURE > Click Delete rows with in suggestion menu > Add
         - Search column9 column
-        - Click dropdown menu > Filter rows > On column Values > Custom filter...
+        - Click dropdown menu > Filter rows > On column Values > Contains...
         - *in filter rows section*
-            - Condition: Contains
             - Column: column9
             - Pattern to match: /(^0$|^0\.0$)/
             - Action: Delete matching rows
