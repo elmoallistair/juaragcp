@@ -2,14 +2,14 @@
 
 ## #JuaraGCP Challenge
 
-Theme: Infrastructure and Application Development\
-Date: Sept 16, 2021 00:00 - Sept 26, 2021 23:59
+Theme: Cloud Computing and Serverless Technology\
+Date: Jan 13, 2022 00:00 - Jan 30, 2022 23:59
 
-Register [here](https://docs.google.com/forms/d/e/1FAIpQLSeXkLepopMB6TzMIo42KrB7lpWbeZiDpsKoqelESaQ_cn6d5Q/viewform?resourcekey=0-gyHRYHlp3lI1Z9ajNNsYMw) to get started\
-Submit your qwiklabs profile [here](https://docs.google.com/forms/d/e/1FAIpQLSfLSoqYZHm7D5Igbg04yGW2-9NGcF186vVw8zEDbJKyEdFg7w/viewform?resourcekey=0-PnZEFMehO-Bz-wGjmlw_6A) (Deadline: 26th September 2021)
+Register [here](https://docs.google.com/forms/d/e/1FAIpQLSeTSIPOZVvqmU7cRapQOACd0TfzGNzVyvb__OQpSFOpL0kzeQ/viewform?usp=pp_url&entry.1487425802=ID-22-I49SL0) to get started\
+Submit your qwiklabs profile [here](https://docs.google.com/forms/d/e/1FAIpQLScKlIJ7J5itzwIZU7fJx9nd9e7xKTr2vHa_1Bs8IP0fbjmucA/viewform?usp=pp_url&entry.101798730=ID-22-I49SL0) (Deadline: 30th January 2022)
 
 Join our [Telegram](https://t.me/JuaraGCP) community\
-Get one month Qwiklabs access [tutorial](https://youtu.be/LqOcVKniUYA)
+Get one month Qwiklabs access [tutorial](https://www.youtube.com/watch?v=o0SK9UoJwq4)
 
 **Note**: This repository contains **challenge lab** only\
 Other references: [Adrianus Yoga](https://www.youtube.com/c/AdrianusYoga/videos) and [Angga Agia](https://www.youtube.com/c/anggaagia/videos) Youtube Channel
@@ -18,7 +18,7 @@ Other references: [Adrianus Yoga](https://www.youtube.com/c/AdrianusYoga/videos)
 
 ### Available Quests
 
-* [Perform Foundational Data, ML, and AI Tasks in Google Cloud](https://www.qwiklabs.com/quests/117)
+* [Automating Infrastructure on Google Cloud with Terraform](https://www.cloudskillsboost.google/quests/159?catalog_rank=%7B%22rank%22%3A28%2C%22num_filters%22%3A0%2C%22has_search%22%3Afalse%7D)
 * [Insights from Data with BigQuery](https://google.qwiklabs.com/quests/123)
 * [Exploring Data with Looker](https://google.qwiklabs.com/quests/165)
 * [Create ML Models with BigQuery ML](https://google.qwiklabs.com/quests/146)
