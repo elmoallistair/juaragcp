@@ -2,7 +2,7 @@
 # https://www.qwiklabs.com/focuses/10258
 
 # 1. Create a project jumphost instance (zone: us-east1-b)
-gcloud compute instances create nucleus-jumphost \
+gcloud compute instances create nucleus-jumphost-850 \
         --zone="us-east1-b" \
         --machine-type="f1-micro" \
         --boot-disk-size=10GB
@@ -13,7 +13,7 @@ gcloud config set compute/zone us-east1-b
 gcloud container clusters create nucleus-jumphost-webserver1
 gcloud container clusters get-credentials nucleus-jumphost-webserver1
 kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0
-kubectl expose deployment hello-app --type=LoadBalancer --port 8080
+kubectl expose deployment hello-app --type=LoadBalancer --port 8083
 kubectl get service
 
 # 3. Create the web server frontend 
@@ -40,7 +40,7 @@ gcloud compute instance-groups managed create nginx-group \
     --target-pool nginx-pool
 
 ## 3.4 Create firewall rule
-gcloud compute firewall-rules create www-firewall --allow tcp:80
+gcloud compute firewall-rules create accept-tcp-rule-525 --allow tcp:80
 gcloud compute forwarding-rules create nginx-lb \
     --region us-east1 \
     --ports=80 \
