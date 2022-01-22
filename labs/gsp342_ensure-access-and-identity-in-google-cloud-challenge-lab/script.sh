@@ -47,7 +47,7 @@ gcloud container clusters create [GANTI_DENGAN_NAMA_CLUSTER_YANG_DIMINTA] \
    --enable-ip-alias \
    --enable-private-nodes \
    --enable-private-endpoint \
-   --service-account [GANTI_DENGAN_NAMA_SERVICE_ACCOUNT_PADA_LANGKAH_SEBELUMNYA]@qwiklabs-gcp-04-f94f73e7e304.iam.gserviceaccount.com \
+   --service-account [GANTI_DENGAN_NAMA_SERVICE_ACCOUNT_PADA_LANGKAH_SEBELUMNYA]@[GANTI_DENGAN_PROJECT_ID_ANDA].iam.gserviceaccount.com \
    --zone us-east1-b
 ##################################################################################################
 
