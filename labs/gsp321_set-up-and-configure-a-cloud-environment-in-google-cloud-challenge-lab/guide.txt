@@ -104,16 +104,25 @@
 # Task 7: Create a WordPress deployment
     - Open Cloud Shell
         - run: cd ~/wp-k8s
-        - run: nano wp-deployment.yaml
-            - Replace YOUR_SQL_INSTANCE with SQL Instance connection name (SQL >  Connect to this instance > Look at connection name)
-            - Save
+        - Edit wp-deployment.yaml (choose one between sheel or editor)
+            - with shell :
+                - run: nano wp-deployment.yaml
+                    - Replace YOUR_SQL_INSTANCE with SQL Instance connection name (SQL >  Connect to this instance > Look at connection name)
+                    - Save
+            - with editor :
+                - Click 'Open Editor'
+                - Go to file wp-k8s/wp-deployment.yaml
+                - Find YOUR_SQL_INSTANCE with Ctrl + F
+                - Replace YOUR_SQL_INSTANCE with SQL Instance connection name (SQL >  Connect to this instance > Look at connection name)
+                - File > Save
+                - Go back to Cloud Shell
         - run: kubectl create -f wp-deployment.yaml
         - run: kubectl create -f wp-service.yaml
     - Go to Kubernetes Engine > Service & Ingress > Click Endpoints (and copy for next task)
         - Tips: If your website failed to showed (database issue) you can still complete this lab
 
 # Task 8: Enable monitoring
-    - Go to Monitoring (Navigation > Monotoring) > Uptime checks (left pane) > CREATE UPTIME CHECK
+    - Go to Monitoring (Navigation > Monitoring) > Uptime checks (left pane) > CREATE UPTIME CHECK
         - Title: WordPress Uptime
         - Protocol: HTTP
         - Resource Type: URL
