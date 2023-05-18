@@ -41,7 +41,7 @@ def magic_eight_ball(request):
 
     # translate if not english
     if language != 'en':
-        logging.info('translating from en to %s' % language)
+        logging.info(f'translating from en to {language}')
         translated_text = translate_client.translate(
              magic_eight_ball_response, target_language=language)
         magic_eight_ball_response = translated_text['translatedText']
