@@ -18,7 +18,7 @@ else:
 
 if len(sys.argv)<3:
     print('You must provide parameters for the Google Cloud project ID and Storage bucket')
-    print ('python3 '+sys.argv[0]+ '[PROJECT_NAME] [BUCKET_NAME]')
+    print(f'python3 {sys.argv[0]}[PROJECT_NAME] [BUCKET_NAME]')
     exit()
 
 project_name = sys.argv[1]
@@ -52,7 +52,7 @@ print('Processing image files from GCS. This will take a few minutes..')
 for file in files:    
     if file.name.endswith('jpg') or  file.name.endswith('png'):
         file_content = file.download_as_string()
-        
+
         # TBD: Create a Vision API image object called image_object 
         # Ref: https://googleapis.dev/python/vision/latest/gapic/v1/types.html#google.cloud.vision_v1.types.Image
         from google.cloud import vision_v1
@@ -64,7 +64,7 @@ for file in files:
         # Ref: https://googleapis.dev/python/vision/latest/gapic/v1/api.html#google.cloud.vision_v1.ImageAnnotatorClient.document_text_detection
         image = vision_v1.types.Image(content=file_content)
         response = client.text_detection(image=image)
-    
+
         # Save the text content found by the vision API into a variable called text_data
         text_data = response.text_annotations[0].description
 
@@ -79,7 +79,7 @@ for file in files:
         # using response object properties e.g. response.text_annotations[0].description
         desc = response.text_annotations[0].description
         locale = response.text_annotations[0].locale
-        
+
         # if the locale is English (en) save the description as the translated_txt
         if locale == 'en':
             translated_text = desc
@@ -88,12 +88,12 @@ for file in files:
             # ref: https://googleapis.dev/python/translation/latest/client.html#google.cloud.translate_v2.client.Client.translate
             # Set the target_language locale to 'en')
             from google.cloud import translate_v2 as translate
-            
+
             client = translate.Client()
             translation = translate_client.translate(text_data, target_language='en')
             translated_text = translation['translatedText']
         print(translated_text)
-        
+
         # if there is response data save the original text read from the image, 
         # the locale, translated text, and filename
         if len(response.text_annotations) > 0:
