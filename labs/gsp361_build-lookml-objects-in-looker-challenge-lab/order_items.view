@@ -1,0 +1,42 @@
+view: order_items_challenge {
+  sql_table_name: `cloud-training-demos.looker_ecomm.order_items’  ;;
+  
+  drill_fields: [order_item_id]
+  
+  dimension: order_item_id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+  }
+
+  # 1. Create a dimension that returns a boolean value if the user traffic source was from Search. Name this dimension is_search_source.
+  dimension: is_search_source {
+    type: yesno
+    sql: ${users.traffic_source} = "Search" ;;
+  }
+
+  # 2. Create a measure that sums the sale price from Search users with a Complete status on their order. Name this measure sales_from_complete_search_users.
+  measure: sales_from_complete_search_users {
+    type: sum
+    sql: ${TABLE}.sale_price ;;
+    filters: [is_search_source: "Yes", order_items.status: "Complete"]
+  }
+
+  # 3. Create a new measure that computes a sum of the total gross margin (sale price - cost).
+  measure: total_gross_margin {
+    type: sum
+    sql: ${TABLE}.sale_price - ${inventory_items.cost} ;;
+  }
+
+  # 4. Create a new dimension that computes the number of days between the Order Delivered Date and the Order Return Date. 
+  dimension: return_days {
+    type: number
+    sql: DATE_DIFF(${order_items.delivered_date}, ${order_items.returned_date}, DAY);;
+  }
+
+  dimension: order_id {
+    type: number
+    sql: ${TABLE}.order_id ;;
+  }
+
+}

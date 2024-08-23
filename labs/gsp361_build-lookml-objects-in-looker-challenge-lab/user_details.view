@@ -1,0 +1,43 @@
+#include: "training_ecommerce.model.lkml"
+
+view: user_details {
+  derived_table: {
+    explore_source: order_items {
+      column: order_id {}
+      column: user_id {}
+      column: total_revenue {}
+      column: age { field: users.age }
+      column: city { field: users.city }
+      column: state { field: users.state }
+    }
+  }
+
+  dimension: order_id {
+    description: ""
+    type: number
+  }
+  
+  dimension: user_id {
+    description: ""
+    type: number
+  }
+  
+  dimension: total_revenue {
+    description: ""
+    value_format: "$#,##0.00"
+    type: number
+  }
+  
+  dimension: age {
+    description: ""
+    type: number
+  }
+  
+  dimension: city {
+    description: ""
+  }
+  
+  dimension: state {
+    description: ""
+  }
+}
